@@ -4,4 +4,11 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="AppContext\" />
+    <Folder Include="Entities\" />
+    <Folder Include="Initialization\" />
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
 </Project>
