@@ -5,6 +5,7 @@ namespace Store.DataAccess.Entities
 {
     public class Payment : BaseEntity
     {
-        public ICollection<Order> Orders{ get; set; }
+        public long TransactionId { get; set; }
+        public ICollection<Order> Orders { get; set; }
     }
 }

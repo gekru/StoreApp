@@ -13,5 +13,7 @@ namespace Store.DataAccess.Entities
 
         public long OrderId { get; set; }
         public Order Order { get; set; }
+
+        public int Count { get; set; }
     }
 }
