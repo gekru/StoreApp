@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Store.DataAccess.Entities;
 
 namespace Store.DataAccess.AppContext
 {
-    public class ApplicationContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationContext : IdentityDbContext<ApplicationUser, IdentityRole<long>, long>
     {
         public DbSet<ApplicationUser> Users { get; set; }
         public DbSet<Author> Authors { get; set; }
