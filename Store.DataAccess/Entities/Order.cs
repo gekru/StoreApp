@@ -12,6 +12,9 @@ namespace Store.DataAccess.Entities
         public long ApplicationUserId { get; set; }
         public ApplicationUser User { get; set; }
 
+        public long PaymentId { get; set; }
+        public Payment Payment { get; set; }
+
         public ICollection<OrderItem> OrderItems { get; set; }
     }
 }
