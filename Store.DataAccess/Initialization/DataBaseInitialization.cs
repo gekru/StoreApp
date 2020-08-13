@@ -14,26 +14,20 @@ namespace Store.DataAccess.Initialization
             {
                  new ApplicationUser
                 {
-                    Id = 1,
                     FirstName = "Emma",
                     LastName = "Jones",
-                    PasswordHash = "",
                     Email = "emma@domain.com"
                 },
                 new ApplicationUser
                 {
-                    Id = 2,
                     FirstName = "Lincoln",
                     LastName = "Smith",
-                    PasswordHash = "",
                     Email = "ls@mail.com"
                 },
                 new ApplicationUser
                 {
-                    Id = 3,
                     FirstName = "Zoe",
                     LastName = "Wilson",
-                    PasswordHash = "",
                     Email = "zoe@mail.com"
                 }
             };
