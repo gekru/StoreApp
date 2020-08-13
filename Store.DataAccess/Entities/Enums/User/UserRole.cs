@@ -3,7 +3,8 @@ namespace Store.DataAccess.Entities.Enums.User
 {
     public enum UserRole
     {
-        Admin,
-        Client
+        None = 0,
+        Admin = 1,
+        Client = 2
     }
 }

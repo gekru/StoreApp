@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Store.DataAccess.Entities;
+using Store.DataAccess.Initialization;
 
 namespace Store.DataAccess.AppContext
 {
@@ -21,9 +22,11 @@ namespace Store.DataAccess.AppContext
 
             builder.Entity<AuthorInPrintingEdition>()
                 .HasKey(t => new { t.AuthorId, t.PrintingEditionId });
+
+            builder.Seed();
         }
 
-        public ApplicationContext(DbContextOptions<ApplicationContext> options) 
+        public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {
         }

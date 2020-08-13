@@ -271,7 +271,7 @@ namespace Store.DataAccess.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("PaymentId")
+                    b.Property<long>("PaymentId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -436,9 +436,11 @@ namespace Store.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Store.DataAccess.Entities.Payment", null)
+                    b.HasOne("Store.DataAccess.Entities.Payment", "Payment")
                         .WithMany("Orders")
-                        .HasForeignKey("PaymentId");
+                        .HasForeignKey("PaymentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Store.DataAccess.Entities.OrderItem", b =>
