@@ -5,8 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Store.BusinessLogic.Services;
+using Store.BusinessLogic.Services.Interfaces;
 using Store.DataAccess.AppContext;
 using Store.DataAccess.Entities;
+using Store.DataAccess.Repositories.EFRepositories;
+using Store.DataAccess.Repositories.Interfaces;
+using Store.Presentation.Middlewares;
 
 namespace Store.Presentation
 {
@@ -30,6 +35,8 @@ namespace Store.Presentation
             services.AddIdentity<ApplicationUser, IdentityRole<long>>()
                 .AddEntityFrameworkStores<ApplicationContext>();
 
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
             
         }
 
@@ -40,8 +47,10 @@ namespace Store.Presentation
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseHttpsRedirection();
+
+            app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseRouting();
 
