@@ -14,18 +14,21 @@ namespace Store.DataAccess.Initialization
             {
                  new ApplicationUser
                 {
+                    Id = 1,
                     FirstName = "Emma",
                     LastName = "Jones",
                     Email = "emma@domain.com"
                 },
                 new ApplicationUser
                 {
+                    Id =2,
                     FirstName = "Lincoln",
                     LastName = "Smith",
                     Email = "ls@mail.com"
                 },
                 new ApplicationUser
                 {
+                    Id = 3,
                     FirstName = "Zoe",
                     LastName = "Wilson",
                     Email = "zoe@mail.com"
@@ -55,7 +58,6 @@ namespace Store.DataAccess.Initialization
                     Description = "Hardcover – June 2, 2020",
                     Price = 16.2M,
                     IsRemoved = false,
-                    Status = Entities.Enums.Order.Status.Paid,
                     Currency = Entities.Enums.PrintingEdition.Currency.USD,
                     Type = Entities.Enums.PrintingEdition.Type.Book,
                 },
@@ -66,7 +68,6 @@ namespace Store.DataAccess.Initialization
                     Description = "Your source for breaking news",
                     Price = 8M,
                     IsRemoved = true,
-                    Status = Entities.Enums.Order.Status.Paid,
                     Currency = Entities.Enums.PrintingEdition.Currency.USD,
                     Type = Entities.Enums.PrintingEdition.Type.Journal,
                 } };
@@ -102,6 +103,7 @@ namespace Store.DataAccess.Initialization
                     Id = 1,
                     Description = "Book order",
                     ApplicationUserId = 1,
+                    Status = Entities.Enums.Order.Status.Paid,
                     Date = DateTime.Today.AddDays(-2),
                     PaymentId = 1
                 },
@@ -110,8 +112,9 @@ namespace Store.DataAccess.Initialization
                     Id = 2,
                     Description = "Journal order",
                     ApplicationUserId = 3,
+                    Status = Entities.Enums.Order.Status.Unpaid,
                     Date = DateTime.Today.AddDays(-5),
-                    PaymentId = 2,
+                    PaymentId = 2
                 }
             };
 
