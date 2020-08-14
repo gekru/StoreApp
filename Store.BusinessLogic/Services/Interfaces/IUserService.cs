@@ -1,9 +1,9 @@
 ﻿using Store.DataAccess.Entities;
 using System.Collections.Generic;
 
-namespace Store.DataAccess.Repositories.Interfaces
+namespace Store.BusinessLogic.Services.Interfaces
 {
-    public interface IUserRepository
+    public interface IUserService
     {
         IEnumerable<ApplicationUser> GetUsers();
         ApplicationUser GetUserById(int userId);
