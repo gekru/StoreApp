@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Store.BusinessLogic.Common;
+using Store.BusinessLogic.Common.Interfaces;
 using Store.BusinessLogic.Services;
 using Store.BusinessLogic.Services.Interfaces;
 using Store.DataAccess.AppContext;
@@ -34,6 +36,8 @@ namespace Store.Presentation
 
             services.AddIdentity<ApplicationUser, IdentityRole<long>>()
                 .AddEntityFrameworkStores<ApplicationContext>();
+
+            services.AddSingleton<ILogger, Logger>();
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();

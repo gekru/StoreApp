@@ -1,19 +1,30 @@
-﻿using Store.BusinessLogic.Common.Interfaces;
-using System;
+﻿using System;
 using System.IO;
+using Store.BusinessLogic.Common.Interfaces;
 
 namespace Store.BusinessLogic.Common
 {
     public class Logger : ILogger
     {
-        public void LogFile(string path, string error)
-        {
-            string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        private readonly string _errorLogFile;
 
-            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "ErrorLog.txt"), true))
+        public Logger()
+        {
+            _errorLogFile = ErrorFilePath();
+        }
+
+        public void LogFile(string errorMessage)
+        {
+            using (StreamWriter outputFile = new StreamWriter(_errorLogFile, true))
             {
-                outputFile.WriteLine($"{DateTime.Now} " + error);
+                outputFile.WriteLine($"Error: {DateTime.Now} {Environment.NewLine} {errorMessage}");
             }
+        }
+
+        private string ErrorFilePath()
+        {
+            string folderPath = new FileInfo(Environment.CurrentDirectory).Directory.FullName;
+            return folderPath + "/ErrorLog.txt";
         }
     }
 }
