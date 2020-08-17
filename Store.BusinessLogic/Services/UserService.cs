@@ -7,7 +7,7 @@ namespace Store.BusinessLogic.Services
 {
     public class UserService : IUserService
     {
-        private IUserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
 
         public UserService(IUserRepository userRepository)
         {
@@ -16,32 +16,27 @@ namespace Store.BusinessLogic.Services
 
         public IEnumerable<ApplicationUser> GetUsers()
         {
-            return _userRepository.GetUsers();
+            return _userRepository.GetAll();
         }
 
         public ApplicationUser GetUserById(long userId)
         {
-            return _userRepository.GetUserById(userId);
+            return _userRepository.GetById(userId);
         }
 
         public void AddUser(ApplicationUser user)
         {
-            _userRepository.AddUser(user);
+            _userRepository.Create(user);
         }
 
         public void UpdateUser(ApplicationUser user)
         {
-            _userRepository.UpdateUser(user);
+            _userRepository.Update(user);
         }
 
         public void DeleteUser(long userId)
         {
-            _userRepository.DeleteUser(userId);
-        }
-
-        public void Save()
-        {
-            _userRepository.Save();
+            _userRepository.Delete(userId);
         }
 
     }

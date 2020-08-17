@@ -10,6 +10,5 @@ namespace Store.BusinessLogic.Services.Interfaces
         void AddUser(ApplicationUser user);
         void UpdateUser(ApplicationUser user);
         void DeleteUser(long userId);
-        void Save();
     }
 }
