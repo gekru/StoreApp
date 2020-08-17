@@ -19,7 +19,7 @@ namespace Store.BusinessLogic.Services
             return _userRepository.GetUsers();
         }
 
-        public ApplicationUser GetUserById(int userId)
+        public ApplicationUser GetUserById(long userId)
         {
             return _userRepository.GetUserById(userId);
         }
@@ -34,7 +34,7 @@ namespace Store.BusinessLogic.Services
             _userRepository.UpdateUser(user);
         }
 
-        public void DeleteUser(int userId)
+        public void DeleteUser(long userId)
         {
             _userRepository.DeleteUser(userId);
         }

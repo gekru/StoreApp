@@ -6,10 +6,10 @@ namespace Store.DataAccess.Repositories.Interfaces
     public interface IUserRepository
     {
         IEnumerable<ApplicationUser> GetUsers();
-        ApplicationUser GetUserById(int userId);
+        ApplicationUser GetUserById(long userId);
         void AddUser(ApplicationUser user);
         void UpdateUser(ApplicationUser user);
-        void DeleteUser(int userId);
+        void DeleteUser(long userId);
         void Save();
     }
 }

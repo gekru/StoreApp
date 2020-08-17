@@ -21,7 +21,7 @@ namespace Store.DataAccess.Repositories.EFRepositories
             return _context.Users.ToList();
         }
 
-        public ApplicationUser GetUserById(int userId)
+        public ApplicationUser GetUserById(long userId)
         {
             return _context.Users.Find(userId);
         }
@@ -36,7 +36,7 @@ namespace Store.DataAccess.Repositories.EFRepositories
             _context.Entry(user).State = EntityState.Modified;
         }
 
-        public void DeleteUser(int userId)
+        public void DeleteUser(long userId)
         {
             ApplicationUser user = _context.Users.Find(userId);
             _context.Users.Remove(user);

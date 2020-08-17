@@ -24,7 +24,7 @@ namespace Store.Presentation.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(int userId)
+        public async Task<IActionResult> GetUserById(long userId)
         {
             var result = _userService.GetUserById(userId);
             return Ok(result);
