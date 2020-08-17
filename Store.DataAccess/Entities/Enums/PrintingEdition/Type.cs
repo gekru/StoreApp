@@ -3,8 +3,9 @@ namespace Store.DataAccess.Entities.Enums.PrintingEdition
 {
     public enum Type
     {
-        Book,
-        Journal,
-        Newspaper
+        None = 0,
+        Book = 1,
+        Journal = 2,
+        Newspaper = 3
     }
 }
