@@ -8,7 +8,6 @@ namespace Store.DataAccess.Entities
     public class Order : BaseEntity
     {
         public string Description { get; set; }
-        public DateTime Date { get; set; }
         public Status Status { get; set; }
 
         public long ApplicationUserId { get; set; }

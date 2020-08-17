@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Store.DataAccess.Entities;
 using Store.DataAccess.Shared.Enums.User;
+using System;
 
 namespace Store.DataAccess.Initialization
 {
@@ -41,11 +41,15 @@ namespace Store.DataAccess.Initialization
                 {
                     Id = 1,
                     Name = "Brit Bennett",
+                    CreationDate = DateTime.Now,
+                    IsRemoved = false
                 },
                  new Author()
                  {
                      Id = 2,
                      Name = "Brad Thor",
+                     CreationDate = DateTime.Now,
+                     IsRemoved = false
                  }
             };
 
@@ -60,6 +64,7 @@ namespace Store.DataAccess.Initialization
                     IsRemoved = false,
                     Currency = Shared.Enums.PrintingEdition.Currency.USD,
                     Type = Shared.Enums.PrintingEdition.Type.Book,
+                    CreationDate = DateTime.Now
                 },
                 new PrintingEdition()
                 {
@@ -70,6 +75,7 @@ namespace Store.DataAccess.Initialization
                     IsRemoved = true,
                     Currency = Shared.Enums.PrintingEdition.Currency.USD,
                     Type = Shared.Enums.PrintingEdition.Type.Journal,
+                    CreationDate = DateTime.Now
                 } };
 
             var userRoles = new[]
@@ -92,7 +98,8 @@ namespace Store.DataAccess.Initialization
                 {
                     AuthorId = 1,
                     PrintingEditionId = 1,
-                    Date = System.DateTime.Today
+                    CreationDate = DateTime.Now,
+                    IsRemoved = false
                 }
             };
 
@@ -104,8 +111,9 @@ namespace Store.DataAccess.Initialization
                     Description = "Book order",
                     ApplicationUserId = 1,
                     Status = Shared.Enums.Order.Status.Paid,
-                    Date = DateTime.Today.AddDays(-2),
-                    PaymentId = 1
+                    CreationDate = DateTime.Today.AddDays(-2),
+                    PaymentId = 1,
+                    IsRemoved = false
                 },
                 new Order
                 {
@@ -113,8 +121,9 @@ namespace Store.DataAccess.Initialization
                     Description = "Journal order",
                     ApplicationUserId = 3,
                     Status = Shared.Enums.Order.Status.Unpaid,
-                    Date = DateTime.Today.AddDays(-5),
-                    PaymentId = 2
+                    CreationDate = DateTime.Today.AddDays(-5),
+                    PaymentId = 2,
+                    IsRemoved = false
                 }
             };
 
@@ -124,11 +133,15 @@ namespace Store.DataAccess.Initialization
                 {
                     Id = 1,
                     TransactionId = 1,
+                    CreationDate = DateTime.Now,
+                    IsRemoved = false
                 },
                  new Payment
                 {
                     Id = 2,
                     TransactionId = 2,
+                    CreationDate = DateTime.Now,
+                    IsRemoved = false
                 }
             };
 
@@ -141,7 +154,9 @@ namespace Store.DataAccess.Initialization
                     Currency = Shared.Enums.PrintingEdition.Currency.USD,
                     PrintingEditionId = 1,
                     OrderId = 1,
-                    Count = 1
+                    Count = 1,
+                    CreationDate = DateTime.Now,
+                    IsRemoved = false
                 },
                 new OrderItem
                 {
@@ -150,7 +165,9 @@ namespace Store.DataAccess.Initialization
                     Currency = Shared.Enums.PrintingEdition.Currency.USD,
                     PrintingEditionId = 2,
                     OrderId = 2,
-                    Count = 1
+                    Count = 1,
+                    CreationDate = DateTime.Now,
+                    IsRemoved = false
                 }
             };
 
