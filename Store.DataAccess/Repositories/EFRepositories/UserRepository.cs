@@ -1,54 +1,25 @@
-﻿using Store.DataAccess.AppContext;
+﻿using Microsoft.AspNetCore.Identity;
+using Store.DataAccess.AppContext;
 using Store.DataAccess.Entities;
 using Store.DataAccess.Repositories.Base;
 using Store.DataAccess.Repositories.Interfaces;
+using System.Threading.Tasks;
 
 namespace Store.DataAccess.Repositories.EFRepositories
 {
     public class UserRepository : BaseEFRepository<ApplicationUser>, IUserRepository
     {
+        private readonly UserManager<ApplicationUser> _manager;
 
-        public UserRepository(ApplicationContext context)
+        public UserRepository(ApplicationContext context, UserManager<ApplicationUser> manager)
             : base(context)
         {
+            _manager = manager;
         }
 
-        //private ApplicationContext _context;
-
-        //public UserRepository(ApplicationContext context)
-        //{
-        //    _context = context;
-        //}
-
-        //public IEnumerable<ApplicationUser> GetUsers()
-        //{
-        //    return _context.Users.ToList();
-        //}
-
-        //public ApplicationUser GetUserById(long userId)
-        //{
-        //    return _context.Users.Find(userId);
-        //}
-
-        //public void AddUser(ApplicationUser user)
-        //{
-        //    _context.Users.Add(user);
-        //}
-
-        //public void UpdateUser(ApplicationUser user)
-        //{
-        //    _context.Entry(user).State = EntityState.Modified;
-        //}
-
-        //public void DeleteUser(long userId)
-        //{
-        //    ApplicationUser user = _context.Users.Find(userId);
-        //    _context.Users.Remove(user);
-        //}
-
-        //public void Save()
-        //{
-        //    _context.SaveChanges();
-        //}
+        public async Task<IdentityResult> AddToRoleAsync(ApplicationUser user, string role)
+        {
+           return await _manager.AddToRoleAsync(user, role);
+        }
     }
 }
