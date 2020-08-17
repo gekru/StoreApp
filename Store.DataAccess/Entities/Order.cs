@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Store.DataAccess.Entities.Base;
-using Store.DataAccess.Entities.Enums.Order;
+using Store.DataAccess.Shared.Enums.Order;
 
 namespace Store.DataAccess.Entities
 {

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Store.DataAccess.Entities;
-using Store.DataAccess.Entities.Enums.User;
+using Store.DataAccess.Shared.Enums.User;
 
 namespace Store.DataAccess.Initialization
 {
@@ -58,8 +58,8 @@ namespace Store.DataAccess.Initialization
                     Description = "Hardcover – June 2, 2020",
                     Price = 16.2M,
                     IsRemoved = false,
-                    Currency = Entities.Enums.PrintingEdition.Currency.USD,
-                    Type = Entities.Enums.PrintingEdition.Type.Book,
+                    Currency = Shared.Enums.PrintingEdition.Currency.USD,
+                    Type = Shared.Enums.PrintingEdition.Type.Book,
                 },
                 new PrintingEdition()
                 {
@@ -68,8 +68,8 @@ namespace Store.DataAccess.Initialization
                     Description = "Your source for breaking news",
                     Price = 8M,
                     IsRemoved = true,
-                    Currency = Entities.Enums.PrintingEdition.Currency.USD,
-                    Type = Entities.Enums.PrintingEdition.Type.Journal,
+                    Currency = Shared.Enums.PrintingEdition.Currency.USD,
+                    Type = Shared.Enums.PrintingEdition.Type.Journal,
                 } };
 
             var userRoles = new[]
@@ -103,7 +103,7 @@ namespace Store.DataAccess.Initialization
                     Id = 1,
                     Description = "Book order",
                     ApplicationUserId = 1,
-                    Status = Entities.Enums.Order.Status.Paid,
+                    Status = Shared.Enums.Order.Status.Paid,
                     Date = DateTime.Today.AddDays(-2),
                     PaymentId = 1
                 },
@@ -112,7 +112,7 @@ namespace Store.DataAccess.Initialization
                     Id = 2,
                     Description = "Journal order",
                     ApplicationUserId = 3,
-                    Status = Entities.Enums.Order.Status.Unpaid,
+                    Status = Shared.Enums.Order.Status.Unpaid,
                     Date = DateTime.Today.AddDays(-5),
                     PaymentId = 2
                 }
@@ -138,7 +138,7 @@ namespace Store.DataAccess.Initialization
                 {
                     Id = 1,
                     Amount = 2,
-                    Currency = Entities.Enums.PrintingEdition.Currency.USD,
+                    Currency = Shared.Enums.PrintingEdition.Currency.USD,
                     PrintingEditionId = 1,
                     OrderId = 1,
                     Count = 1
@@ -147,7 +147,7 @@ namespace Store.DataAccess.Initialization
                 {
                     Id = 2,
                     Amount = 1,
-                    Currency = Entities.Enums.PrintingEdition.Currency.USD,
+                    Currency = Shared.Enums.PrintingEdition.Currency.USD,
                     PrintingEditionId = 2,
                     OrderId = 2,
                     Count = 1

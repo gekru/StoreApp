@@ -1,5 +1,5 @@
 ﻿
-namespace Store.DataAccess.Entities.Enums.Order
+namespace Store.DataAccess.Shared.Enums.Order
 {
     public enum Status
     {

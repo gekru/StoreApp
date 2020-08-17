@@ -1,5 +1,5 @@
 ﻿
-namespace Store.DataAccess.Entities.Enums.User
+namespace Store.DataAccess.Shared.Enums.User
 {
     public enum UserRole
     {

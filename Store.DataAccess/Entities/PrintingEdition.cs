@@ -1,5 +1,5 @@
 ﻿using Store.DataAccess.Entities.Base;
-using Store.DataAccess.Entities.Enums.PrintingEdition;
+using Store.DataAccess.Shared.Enums.PrintingEdition;
 using System.Collections.Generic;
 
 namespace Store.DataAccess.Entities

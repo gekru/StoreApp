@@ -1,5 +1,5 @@
 ﻿
-namespace Store.DataAccess.Entities.Enums.PrintingEdition
+namespace Store.DataAccess.Shared.Enums.PrintingEdition
 {
     public enum Type
     {
