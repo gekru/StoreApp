@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace Store.Presentation.Controllers
 {
     [ApiController]
-    [Route("users/")]
+    [Route("users")]
     public class UserController : Controller
     {
         
@@ -24,9 +24,9 @@ namespace Store.Presentation.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(long userId)
+        public async Task<IActionResult> GetUserById(long id)
         {
-            var result = _userService.GetUserById(userId);
+            var result = _userService.GetUserById(id);
             return Ok(result);
         }
 
