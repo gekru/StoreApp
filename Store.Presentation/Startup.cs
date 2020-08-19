@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -5,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Store.BusinessLogic.Common;
 using Store.BusinessLogic.Common.Interfaces;
 using Store.BusinessLogic.Services;
@@ -14,6 +16,7 @@ using Store.DataAccess.Entities;
 using Store.DataAccess.Repositories.EFRepositories;
 using Store.DataAccess.Repositories.Interfaces;
 using Store.Presentation.Middlewares;
+using System.Text;
 
 namespace Store.Presentation
 {
@@ -31,7 +34,7 @@ namespace Store.Presentation
         {
             services.AddControllers();
 
-            services.AddDbContext<ApplicationContext>(options => 
+            services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole<long>>()
@@ -41,7 +44,21 @@ namespace Store.Presentation
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
-            
+
+            // Getting section from appsetings.json
+            IConfigurationSection jwtSettings = Configuration.GetSection("JwtSettings");
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidIssuer = jwtSettings["Issuer"],
+                        ValidAudience = jwtSettings["Issuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"])),
+                    };
+                });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,7 +68,7 @@ namespace Store.Presentation
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseHttpsRedirection();
 
             app.UseMiddleware<ErrorHandlerMiddleware>();

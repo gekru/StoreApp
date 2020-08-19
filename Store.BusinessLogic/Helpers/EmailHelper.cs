@@ -16,7 +16,7 @@ namespace Store.BusinessLogic.Helpers
         public async Task SendMailAsync(string recipientMail)
         {
             // Getting section from appsetings.json
-            IConfigurationSection emailSettings = _configuration.GetSection("Emailettings");
+            IConfigurationSection emailSettings = _configuration.GetSection("EmailSettings");
             // Getting  value that corresponds current key
             string senderMail = emailSettings["SenderMail"];
             string senderName = emailSettings["SenderName"];
