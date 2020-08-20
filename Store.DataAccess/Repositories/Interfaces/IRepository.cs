@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Store.DataAccess.Repositories.Interfaces
 {
     public interface IRepository<T> where T : class
     {
-        IEnumerable<T> GetAll();
-        T GetById(long id);
-        void Create(T entity);
-        void Update(T entity);
-        void Delete(long id);
+        Task<IEnumerable<T>> GetAllAsync();
+        Task<T> GetByIdAsync(long id);
+        Task CreateAsync(T entity);
+        Task UpdateAsync(T entity);
+        Task DeleteAsync(long id);
+        Task SaveAsync();
     }
 }

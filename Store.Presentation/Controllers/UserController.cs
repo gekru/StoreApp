@@ -9,8 +9,8 @@ namespace Store.Presentation.Controllers
     [Route("users")]
     public class UserController : Controller
     {
-        
-        private IUserService _userService;
+
+        private readonly IUserService _userService;
 
         public UserController(IUserService userService)
         {
@@ -18,24 +18,40 @@ namespace Store.Presentation.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> GetAsync()
         {
-            return Ok(_userService.GetUsers());
+            var result = await _userService.GetUsersAsync();
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(long id)
+        public async Task<IActionResult> GetUserByIdAsync(long id)
         {
-            var result = _userService.GetUserById(id);
+            var result = await _userService.GetUserByIdAsync(id);
             return Ok(result);
         }
 
         [HttpPost]
-        public IActionResult Post(ApplicationUser user)
+        public async Task<IActionResult> PostAsync(ApplicationUser user)
         {
-            _userService.AddUser(user);
+            await _userService.AddUserAsync(user);
 
             return Ok(user);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAync(long id)
+        {
+            var currentUser = await GetUserByIdAsync(id);
+
+            if (currentUser == null)
+            {
+                return NotFound();
+            }
+
+            await _userService.DeleteUserAsync(id);
+
+            return Ok(currentUser);
         }
 
     }

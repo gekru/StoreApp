@@ -2,46 +2,53 @@
 using Store.DataAccess.AppContext;
 using Store.DataAccess.Repositories.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace Store.DataAccess.Repositories.Base
 {
     public class BaseEFRepository<T> : IRepository<T> where T : class
     {
         private readonly ApplicationContext _context;
-
+        protected DbSet<T> _entityDbSet;
         public BaseEFRepository(ApplicationContext context)
         {
             _context = context;
+            _entityDbSet = context.Set<T>();
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return _context.Set<T>().ToList();
+            return await _entityDbSet.ToListAsync();
         }
 
-        public T GetById(long id)
+        public async Task<T> GetByIdAsync(long id)
         {
-            return _context.Set<T>().Find(id);
+            return await _entityDbSet.FindAsync(id);
         }
 
-        public void Create(T entity)
+        public async Task CreateAsync(T entity)
         {
-            _context.Set<T>().Add(entity);
-            _context.SaveChanges();
+            await _entityDbSet.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(T entity)
+        public async Task UpdateAsync(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(long id)
+        public async Task DeleteAsync(long id)
         {
-            var entity = _context.Set<T>().Find(id);
-            _context.Set<T>().Remove(entity);
-            _context.SaveChanges();
+            var entity = _entityDbSet.Find(id);
+            _entityDbSet.Remove(entity);
+            await _context.SaveChangesAsync();
         }
+
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
+
     }
 }

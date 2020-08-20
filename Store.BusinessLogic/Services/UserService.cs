@@ -2,6 +2,7 @@
 using Store.DataAccess.Entities;
 using Store.DataAccess.Repositories.Interfaces;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Store.BusinessLogic.Services
 {
@@ -14,29 +15,29 @@ namespace Store.BusinessLogic.Services
             _userRepository = userRepository;
         }
 
-        public IEnumerable<ApplicationUser> GetUsers()
+        public async Task<IEnumerable<ApplicationUser>> GetUsersAsync()
         {
-            return _userRepository.GetAll();
+            return await _userRepository.GetAllAsync();
         }
 
-        public ApplicationUser GetUserById(long userId)
+        public async Task<ApplicationUser> GetUserByIdAsync(long userId)
         {
-            return _userRepository.GetById(userId);
+            return await _userRepository.GetByIdAsync(userId);
         }
 
-        public void AddUser(ApplicationUser user)
+        public async Task AddUserAsync(ApplicationUser user)
         {
-            _userRepository.Create(user);
+            await _userRepository.CreateAsync(user);
         }
 
-        public void UpdateUser(ApplicationUser user)
+        public async Task UpdateUserAsync(ApplicationUser user)
         {
-            _userRepository.Update(user);
+            await _userRepository.UpdateAsync(user);
         }
 
-        public void DeleteUser(long userId)
+        public async Task DeleteUserAsync(long userId)
         {
-            _userRepository.Delete(userId);
+           await _userRepository.DeleteAsync(userId);
         }
 
     }
