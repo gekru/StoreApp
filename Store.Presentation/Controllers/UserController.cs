@@ -17,21 +17,21 @@ namespace Store.Presentation.Controllers
             _userService = userService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll", Name = "GetAllUsers")]
         public async Task<IActionResult> GetAsync()
         {
             var result = await _userService.GetUsersAsync();
             return Ok(result);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetById/{id}", Name = "GetUserById")]
         public async Task<IActionResult> GetUserByIdAsync(long id)
         {
             var result = await _userService.GetUserByIdAsync(id);
             return Ok(result);
         }
-
-        [HttpPost]
+        
+        [HttpPost("CreateUser", Name = "CreateNewUser")]
         public async Task<IActionResult> PostAsync(ApplicationUser user)
         {
             await _userService.AddUserAsync(user);
@@ -39,7 +39,7 @@ namespace Store.Presentation.Controllers
             return Ok(user);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteUser/{id}", Name = "DeleteUser")]
         public async Task<IActionResult> DeleteAync(long id)
         {
             var currentUser = await GetUserByIdAsync(id);

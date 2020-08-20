@@ -59,6 +59,9 @@ namespace Store.Presentation
                     };
                 });
 
+            // Register the Swagger generator
+            services.AddSwaggerGen();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,6 +80,13 @@ namespace Store.Presentation
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Specifying the Swagger JSON endpoint
+            app.UseSwaggerUI(s =>
+                s.SwaggerEndpoint("/swagger/v1/swagger.json", "StoreAppSwagger"));
 
             app.UseEndpoints(endpoints =>
             {
