@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Store.BusinessLogic.Models.Users;
 using Store.BusinessLogic.Services.Interfaces;
-using Store.DataAccess.Entities;
 using System.Threading.Tasks;
 
 namespace Store.Presentation.Controllers
@@ -32,7 +32,7 @@ namespace Store.Presentation.Controllers
         }
         
         [HttpPost("CreateUser", Name = "CreateNewUser")]
-        public async Task<IActionResult> PostAsync(ApplicationUser user)
+        public async Task<IActionResult> PostAsync(UserModel user)
         {
             await _userService.AddUserAsync(user);
 

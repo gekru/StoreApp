@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Store.BusinessLogic.Common;
 using Store.BusinessLogic.Common.Interfaces;
+using Store.BusinessLogic.Providers;
 using Store.BusinessLogic.Services;
 using Store.BusinessLogic.Services.Interfaces;
 using Store.DataAccess.AppContext;
@@ -61,6 +63,13 @@ namespace Store.Presentation
 
             // Register the Swagger generator
             services.AddSwaggerGen();
+
+            var mapperConfig = new MapperConfiguration(cfg =>
+                cfg.AddProfile(new MapperProvider()));
+
+            IMapper mapper = mapperConfig.CreateMapper();
+
+            services.AddSingleton(mapper);
 
         }
 
