@@ -2,10 +2,11 @@
 using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Store.BusinessLogic.Providers.Interfaces;
 
 namespace Store.BusinessLogic.Providers
 {
-    public class EmailProvider
+    public class EmailProvider : IEmailProvider
     {
         private readonly IConfiguration _configuration;
 
