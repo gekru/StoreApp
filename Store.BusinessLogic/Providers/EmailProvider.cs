@@ -3,13 +3,13 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 
-namespace Store.BusinessLogic.Helpers
+namespace Store.BusinessLogic.Providers
 {
-    public class EmailHelper
+    public class EmailProvider
     {
         private readonly IConfiguration _configuration;
 
-        public EmailHelper(IConfiguration configuration)
+        public EmailProvider(IConfiguration configuration)
         {
             _configuration = configuration;
         }

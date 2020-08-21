@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Store.Presentation.Helpers.Interfaces;
+using Store.Presentation.Providers.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -8,13 +8,13 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Store.Presentation.Helpers
+namespace Store.Presentation.Providers
 {
-    public class JwtHelper : IJwtHelper
+    public class JwtProvider : IJwtProvider
     {
         private readonly IConfiguration _configuration;
 
-        public JwtHelper(IConfiguration configuration)
+        public JwtProvider(IConfiguration configuration)
         {
             _configuration = configuration;
         }
