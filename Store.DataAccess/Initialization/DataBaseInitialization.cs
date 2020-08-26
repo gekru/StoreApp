@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Store.DataAccess.Entities;
-using Store.DataAccess.Shared.Enums.User;
+using Store.Shared.Enums.User;
 using System;
 
 namespace Store.DataAccess.Initialization
