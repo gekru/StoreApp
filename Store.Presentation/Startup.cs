@@ -15,6 +15,7 @@ using Store.BusinessLogic.Services;
 using Store.BusinessLogic.Services.Interfaces;
 using Store.DataAccess.AppContext;
 using Store.DataAccess.Entities;
+using Store.DataAccess.Initialization;
 using Store.DataAccess.Repositories.EFRepositories;
 using Store.DataAccess.Repositories.Interfaces;
 using Store.Presentation.Middlewares;
@@ -74,7 +75,8 @@ namespace Store.Presentation
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
+            UserManager<ApplicationUser> userManager, IConfiguration configuration)
         {
             if (env.IsDevelopment())
             {
@@ -89,6 +91,8 @@ namespace Store.Presentation
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            DbUserInitializer.InitializeAdmin(userManager, configuration);
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
