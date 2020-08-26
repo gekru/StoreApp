@@ -1,5 +1,4 @@
-﻿
-namespace Store.DataAccess.Shared.Enums.PrintingEdition
+﻿namespace Store.Shared.Enums.PrintingEdition
 {
     public enum Currency
     {

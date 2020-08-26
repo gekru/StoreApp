@@ -1,5 +1,4 @@
-﻿
-namespace Store.DataAccess.Shared.Enums.User
+﻿namespace Store.Shared.Enums.User
 {
     public enum UserRole
     {

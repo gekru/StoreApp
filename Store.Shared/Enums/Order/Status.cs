@@ -1,5 +1,4 @@
-﻿
-namespace Store.DataAccess.Shared.Enums.Order
+﻿namespace Store.Shared.Enums.Order
 {
     public enum Status
     {
