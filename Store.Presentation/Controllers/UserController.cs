@@ -38,6 +38,13 @@ namespace Store.Presentation.Controllers
 
             return Ok(user);
         }
+        
+        [HttpPost("UpdateUser")]
+        public async Task<IActionResult> UpdateAsync(UserModel user)
+        {
+            await _userService.UpdateUserAsync(user);
+            return Ok(user);
+        }
 
         [HttpDelete("DeleteUser/{id}", Name = "DeleteUser")]
         public async Task<IActionResult> DeleteAync(long id)
