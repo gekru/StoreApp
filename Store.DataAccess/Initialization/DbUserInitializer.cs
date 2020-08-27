@@ -22,12 +22,12 @@ namespace Store.DataAccess.Initialization
                 UserName = configuration["AdminData:Email"],
                 EmailConfirmed = true
             };
-
-            var result = await userManager.CreateAsync(admin, configuration["AdminData:Password"]);
+            
+            IdentityResult result = userManager.CreateAsync(admin, configuration["AdminData:Password"]).Result;
 
             if (result.Succeeded)
             {
-                await userManager.AddToRoleAsync(admin, UserRole.Admin.ToString());
+                userManager.AddToRoleAsync(admin, UserRole.Admin.ToString()).GetAwaiter().GetResult();
             }
         }
     }
