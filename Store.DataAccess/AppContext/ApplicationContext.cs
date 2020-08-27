@@ -8,7 +8,7 @@ namespace Store.DataAccess.AppContext
 {
     public class ApplicationContext : IdentityDbContext<ApplicationUser, IdentityRole<long>, long>
     {
-        public DbSet<ApplicationUser> Users { get; set; }
+        public override DbSet<ApplicationUser> Users { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<AuthorInPrintingEdition> AuthorInPrintingEditions { get; set; }
         public DbSet<Order> Orders { get; set; }

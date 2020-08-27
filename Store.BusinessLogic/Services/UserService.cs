@@ -37,40 +37,46 @@ namespace Store.BusinessLogic.Services
 
         public async Task AddUserAsync(UserModel user)
         {
-           
+
             var result = await _userManager.CreateAsync(_mapper.Map<ApplicationUser>(user));
-            
+
             if (result.Succeeded)
             {
                 await AddToRoleAsync(user, UserRole.Client.ToString());
             }
-
-            //await _userRepository.CreateAsync(_mapper.Map<ApplicationUser>(user));
         }
 
         public async Task<UserModel> UpdateUserAsync(UserModel user)
         {
-            var result2 = _userManager.FindByIdAsync(user.Id.ToString());
-            var result = _userManager.FindByEmailAsync(user.Email);
-            var result1 = _userManager.FindByNameAsync(user.Email);
-            
-            if (result is null)
+            var currentUser = await _userManager.FindByEmailAsync(user.Email);
+
+            if (currentUser is null)
             {
                 user.Errors.Add("User not found");
                 return user;
             }
 
-            var mapperUser = _mapper.Map<ApplicationUser>(user);
-
-            var res = await _userManager.UpdateAsync(mapperUser);
-            if (!res.Succeeded)
+            if (user.FirstName is not null)
             {
-                res.Errors.ToList().ForEach(item =>
+                currentUser.FirstName = user.FirstName;
+            }
+
+            if (user.LastName is not null)
+            {
+                currentUser.LastName = user.LastName;
+            }
+
+            var result = await _userManager.UpdateAsync(currentUser);
+
+            if (!result.Succeeded)
+            {
+                result.Errors.ToList().ForEach(item =>
                 {
                     user.Errors.Add($"{item}");
                 });
                 return user;
             }
+
             return user;
         }
 

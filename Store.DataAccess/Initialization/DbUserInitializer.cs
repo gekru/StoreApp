@@ -7,9 +7,9 @@ namespace Store.DataAccess.Initialization
 {
     public static class DbUserInitializer
     {
-        public static void InitializeAdmin(UserManager<ApplicationUser> userManager, IConfiguration configuration)
+        public static async void InitializeAdmin(UserManager<ApplicationUser> userManager, IConfiguration configuration)
         {
-            if (userManager.FindByEmailAsync(configuration["AdminData:Email"]) is null)
+            if (await userManager.FindByEmailAsync(configuration["AdminData:Email"]) is not null)
             {
                 return;
             }
@@ -23,11 +23,11 @@ namespace Store.DataAccess.Initialization
                 EmailConfirmed = true
             };
 
-            var result = userManager.CreateAsync(admin, configuration["AdminData:Password"]).GetAwaiter().GetResult();
+            var result = await userManager.CreateAsync(admin, configuration["AdminData:Password"]);
 
             if (result.Succeeded)
             {
-                userManager.AddToRoleAsync(admin, UserRole.Admin.ToString());
+                await userManager.AddToRoleAsync(admin, UserRole.Admin.ToString());
             }
         }
     }
