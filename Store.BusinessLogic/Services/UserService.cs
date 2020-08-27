@@ -35,15 +35,19 @@ namespace Store.BusinessLogic.Services
             return await _userRepository.GetByIdAsync(userId);
         }
 
-        public async Task AddUserAsync(UserModel user)
+        public async Task<UserModel> AddUserAsync(UserModel user)
         {
+            var mapperUser = _mapper.Map<ApplicationUser>(user);
+            mapperUser.UserName = mapperUser.Email;
 
-            var result = await _userManager.CreateAsync(_mapper.Map<ApplicationUser>(user));
-
+            var result = await _userManager.CreateAsync(mapperUser, user.Password);
+            
             if (result.Succeeded)
             {
-                await AddToRoleAsync(user, UserRole.Client.ToString());
+                await AddToRoleAsync(mapperUser, UserRole.Client.ToString());
             }
+
+            return user;
         }
 
         public async Task<UserModel> UpdateUserAsync(UserModel user)
@@ -90,9 +94,9 @@ namespace Store.BusinessLogic.Services
             return await _userManager.GetRolesAsync(_mapper.Map<ApplicationUser>(user));
         }
 
-        public async Task<IdentityResult> AddToRoleAsync(UserModel user, string role)
+        public async Task<IdentityResult> AddToRoleAsync(ApplicationUser user, string role)
         {
-            return await _userManager.AddToRoleAsync(_mapper.Map<ApplicationUser>(user), role);
+            return await _userManager.AddToRoleAsync(user, role);
         }
 
     }

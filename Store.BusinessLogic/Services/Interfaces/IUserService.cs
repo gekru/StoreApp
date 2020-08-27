@@ -10,7 +10,7 @@ namespace Store.BusinessLogic.Services.Interfaces
     {
         Task<IEnumerable<ApplicationUser>> GetUsersAsync();
         Task<ApplicationUser> GetUserByIdAsync(long userId);
-        Task AddUserAsync(UserModel user);
+        Task<UserModel> AddUserAsync(UserModel user);
         Task<UserModel> UpdateUserAsync(UserModel user);
         Task DeleteUserAsync(long userId);
     }
