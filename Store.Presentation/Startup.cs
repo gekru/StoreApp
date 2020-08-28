@@ -45,8 +45,8 @@ namespace Store.Presentation
 
             services.AddSingleton<ILogger, Logger>();
 
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IUserService, UserService>();
 
             // Getting section from appsetings.json
             IConfigurationSection jwtSettings = Configuration.GetSection("JwtSettings");
@@ -92,7 +92,7 @@ namespace Store.Presentation
             app.UseAuthentication();
             app.UseAuthorization();
 
-            DbUserInitializer.InitializeAdmin(userManager, configuration);
+            DbUserInitializer.InitializeAdmin(userManager, configuration).Wait();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();

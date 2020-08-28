@@ -2,12 +2,13 @@
 using Microsoft.Extensions.Configuration;
 using Store.DataAccess.Entities;
 using Store.Shared.Enums.User;
+using System.Threading.Tasks;
 
 namespace Store.DataAccess.Initialization
 {
     public static class DbUserInitializer
     {
-        public static async void InitializeAdmin(UserManager<ApplicationUser> userManager, IConfiguration configuration)
+        public static async Task InitializeAdmin(UserManager<ApplicationUser> userManager, IConfiguration configuration)
         {
             if (await userManager.FindByEmailAsync(configuration["AdminData:Email"]) is not null)
             {
@@ -22,12 +23,12 @@ namespace Store.DataAccess.Initialization
                 UserName = configuration["AdminData:Email"],
                 EmailConfirmed = true
             };
-            
-            IdentityResult result = userManager.CreateAsync(admin, configuration["AdminData:Password"]).Result;
+
+            IdentityResult result = await userManager.CreateAsync(admin, configuration["AdminData:Password"]);
 
             if (result.Succeeded)
             {
-                userManager.AddToRoleAsync(admin, UserRole.Admin.ToString()).GetAwaiter().GetResult();
+                await userManager.AddToRoleAsync(admin, UserRole.Admin.ToString());
             }
         }
     }
