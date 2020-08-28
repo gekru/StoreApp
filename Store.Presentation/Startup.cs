@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using Store.BusinessLogic.Common;
 using Store.BusinessLogic.Common.Interfaces;
 using Store.BusinessLogic.Providers;
+using Store.BusinessLogic.Providers.Interfaces;
 using Store.BusinessLogic.Services;
 using Store.BusinessLogic.Services.Interfaces;
 using Store.DataAccess.AppContext;
@@ -41,12 +42,15 @@ namespace Store.Presentation
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole<long>>()
-                .AddEntityFrameworkStores<ApplicationContext>();
+                .AddEntityFrameworkStores<ApplicationContext>()
+                .AddDefaultTokenProviders();
 
             services.AddSingleton<ILogger, Logger>();
 
+            services.AddTransient<IEmailProvider, EmailProvider>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IAccountService, AccountService>();
 
             // Getting section from appsetings.json
             IConfigurationSection jwtSettings = Configuration.GetSection("JwtSettings");
