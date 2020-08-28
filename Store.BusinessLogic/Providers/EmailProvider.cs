@@ -14,7 +14,7 @@ namespace Store.BusinessLogic.Providers
         {
             _configuration = configuration;
         }
-        public async Task SendMailAsync(string recipientMail)
+        public async Task SendMailAsync(string recipientMail, string mailSubject, string mailBody)
         {
             // Getting section from appsetings.json
             IConfigurationSection emailSettings = _configuration.GetSection("EmailSettings");
@@ -28,8 +28,8 @@ namespace Store.BusinessLogic.Providers
 
             MailMessage mailMessage = new MailMessage(fromMailAddress, toMailAddress)
             {
-                Subject = "MailSubject",
-                Body = "MailBody",
+                Subject = mailSubject,
+                Body = mailBody,
                 IsBodyHtml = true
             };
 
