@@ -9,6 +9,9 @@ namespace Store.BusinessLogic.Services.Interfaces
     {
         Task<IdentityResult> AddToRoleAsync(ApplicationUser user, string role);
         Task ConfirmEmailAsync(string email, string token);
+        Task ForgotPasswordAsync(ForgotPasswordModel model);
         Task<RegisterModel> RegisterUserAsync(RegisterModel user);
+        ResetPasswordModel ResetPassword(string token);
+        Task ResetPasswordAsync(ResetPasswordModel model);
     }
 }

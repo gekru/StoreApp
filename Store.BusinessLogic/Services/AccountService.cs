@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Store.BusinessLogic.Models.Account;
-using Store.BusinessLogic.Providers.Interfaces;
 using Store.BusinessLogic.Services.Interfaces;
 using Store.DataAccess.Entities;
 using Store.Shared.Enums.User;
@@ -14,13 +13,12 @@ namespace Store.BusinessLogic.Services
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMapper _mapper;
-        private readonly IEmailProvider _emailProvider;
 
-        public AccountService(UserManager<ApplicationUser> userManager, IMapper mapper, IEmailProvider emailProvider)
+
+        public AccountService(UserManager<ApplicationUser> userManager, IMapper mapper)
         {
             _userManager = userManager;
             _mapper = mapper;
-            _emailProvider = emailProvider;
         }
 
         public async Task<RegisterModel> RegisterUserAsync(RegisterModel user)
@@ -29,7 +27,7 @@ namespace Store.BusinessLogic.Services
             mapperUser.UserName = mapperUser.Email;
 
             var result = await _userManager.CreateAsync(mapperUser, user.Password);
-            
+
             if (result.Succeeded)
             {
                 await AddToRoleAsync(mapperUser, UserRole.Client.ToString());
@@ -48,6 +46,35 @@ namespace Store.BusinessLogic.Services
             return user;
         }
 
+        public async Task ForgotPasswordAsync(ForgotPasswordModel model)
+        {
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user is null || !await _userManager.IsEmailConfirmedAsync(user))
+            {
+                return;
+            }
+
+            model.Token = await _userManager.GeneratePasswordResetTokenAsync(user);
+        }
+
+        public ResetPasswordModel ResetPassword(string token)
+        {
+            var model = new ResetPasswordModel { Token = token };
+            return model;
+        }
+
+        public async Task ResetPasswordAsync(ResetPasswordModel model)
+        {
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user is null)
+            {
+                return;
+            }
+
+            await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
+        }
+
+
         public async Task ConfirmEmailAsync(string email, string token)
         {
             if (email is null)
@@ -57,12 +84,7 @@ namespace Store.BusinessLogic.Services
             var user = await _userManager.FindByEmailAsync(email);
             var mapperUser = _mapper.Map<ApplicationUser>(user);
 
-            var result = await _userManager.ConfirmEmailAsync(mapperUser, token);
-
-            if (result.Succeeded)
-            {
-
-            }
+            await _userManager.ConfirmEmailAsync(mapperUser, token);
         }
 
         public async Task<IdentityResult> AddToRoleAsync(ApplicationUser user, string role)
