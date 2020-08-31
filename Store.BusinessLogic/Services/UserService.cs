@@ -53,7 +53,7 @@ namespace Store.BusinessLogic.Services
         public async Task<UserModel> UpdateUserAsync(UserModel user)
         {
             var currentUser = await _userManager.FindByEmailAsync(user.Email);
-
+            
             if (currentUser is null)
             {
                 user.Errors.Add("User not found");

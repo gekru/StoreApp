@@ -20,6 +20,8 @@ using Store.DataAccess.Initialization;
 using Store.DataAccess.Repositories.EFRepositories;
 using Store.DataAccess.Repositories.Interfaces;
 using Store.Presentation.Middlewares;
+using Store.Presentation.Providers;
+using Store.Presentation.Providers.Interfaces;
 using System.Text;
 
 namespace Store.Presentation
@@ -47,6 +49,7 @@ namespace Store.Presentation
 
             services.AddSingleton<ILogger, Logger>();
 
+            services.AddTransient<IJwtProvider, JwtProvider>();
             services.AddTransient<IEmailProvider, EmailProvider>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserService, UserService>();

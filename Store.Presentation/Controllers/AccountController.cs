@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Store.BusinessLogic.Models.Account;
+using Store.BusinessLogic.Models.Users;
 using Store.BusinessLogic.Providers.Interfaces;
 using Store.BusinessLogic.Services.Interfaces;
+using Store.Presentation.Providers.Interfaces;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Store.Presentation.Controllers
@@ -13,11 +16,13 @@ namespace Store.Presentation.Controllers
     {
         private readonly IAccountService _accountService;
         private readonly IEmailProvider _emailProvider;
+        private readonly IJwtProvider _jwtProvider;
 
-        public AccountController(IAccountService accountService, IEmailProvider emailProvider)
+        public AccountController(IAccountService accountService, IEmailProvider emailProvider, IJwtProvider jwtProvider)
         {
             _accountService = accountService;
             _emailProvider = emailProvider;
+            _jwtProvider = jwtProvider;
         }
 
         [HttpPost("RegisterUser")]
@@ -49,6 +54,44 @@ namespace Store.Presentation.Controllers
         {
             await _accountService.ConfirmEmailAsync(email, token);
             return Ok();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginModel loginModel)
+        {
+            var userModel = new UserModel()
+            {
+                Email = loginModel.Email,
+                Password = loginModel.Password
+            };
+
+            var result = await _accountService.LoginAsync(userModel);
+
+            if (!result.Succeeded)
+            {
+                return Unauthorized();
+            }
+
+            userModel = await _accountService.FindByEmailAsync(userModel.Email);
+
+            var claims = new[]
+            {
+                new Claim(ClaimsIdentity.DefaultNameClaimType, userModel.Id.ToString()),
+                new Claim(ClaimsIdentity.DefaultNameClaimType, userModel.Email),
+                new Claim(ClaimsIdentity.DefaultNameClaimType, userModel.FirstName),
+                new Claim(ClaimsIdentity.DefaultNameClaimType, userModel.LastName),
+            };
+
+            var accessToken = _jwtProvider.GenerateAccessToken(claims);
+            var refreshToekn = _jwtProvider.GenerateRefreshToken();
+
+            var tokenModel = new JwtTokenModel
+            {
+                AccessToken = accessToken,
+                RefreshToken = refreshToekn
+            };
+
+            return Ok(tokenModel);
         }
 
         [HttpPost("ForgotPassword")]
