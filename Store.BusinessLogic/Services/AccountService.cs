@@ -131,6 +131,9 @@ namespace Store.BusinessLogic.Services
             return await _userManager.GetRolesAsync(user);
 
         }
-
+        public async Task LogoutAsync()
+        {
+            await _signInManager.SignOutAsync();
+        }
     }
 }

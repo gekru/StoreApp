@@ -15,6 +15,7 @@ namespace Store.BusinessLogic.Services.Interfaces
         Task ForgotPasswordAsync(ForgotPasswordModel model);
         Task<IList<string>> GetRolesAsync(string email);
         Task<SignInResult> LoginAsync(UserModel userModel);
+        Task LogoutAsync();
         Task<RegisterModel> RegisterUserAsync(RegisterModel user);
         ResetPasswordModel ResetPassword(string token);
         Task ResetPasswordAsync(ResetPasswordModel model);

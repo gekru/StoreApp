@@ -139,5 +139,11 @@ namespace Store.Presentation.Controllers
             }
             return Ok();
         }
+
+        [HttpPost("Logout")]
+        public async Task Logout()
+        {
+            await _accountService.LogoutAsync();
+        }
     }
 }
