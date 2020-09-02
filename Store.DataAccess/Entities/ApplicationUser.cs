@@ -7,6 +7,15 @@ namespace Store.DataAccess.Entities
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        /// <summary>
+        /// Represent if user allowed to use this resource
+        /// </summary>
+        public bool IsActive { get; set; }
         public ICollection<Order> Orders { get; set; }
+        public ApplicationUser()
+        {
+            IsActive = true;
+        }
     }
 }
