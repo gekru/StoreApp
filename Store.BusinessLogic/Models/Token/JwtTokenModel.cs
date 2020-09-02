@@ -1,4 +1,4 @@
-﻿namespace Store.BusinessLogic.Models.Account
+﻿namespace Store.BusinessLogic.Models.Token
 {
     public class JwtTokenModel
     {
