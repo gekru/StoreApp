@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Store.BusinessLogic.Models.Filter;
 using Store.BusinessLogic.Models.Users;
 using Store.BusinessLogic.Services.Interfaces;
 using Store.DataAccess.Entities;
@@ -25,9 +26,13 @@ namespace Store.BusinessLogic.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ApplicationUser>> GetUsersAsync()
+        public async Task<IEnumerable<ApplicationUser>> GetUsersAsync(PaginationFilter paginationFilter)
         {
-            return await _userRepository.GetAllAsync();
+            var result = await _userRepository.GetAllAsync();
+
+            return result.OrderBy(n => n.Id)
+                .Skip((paginationFilter.PageNumber - 1) * paginationFilter.PageSize)
+                .Take(paginationFilter.PageSize);
         }
 
         public async Task<ApplicationUser> GetUserByIdAsync(long userId)
