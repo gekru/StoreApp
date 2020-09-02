@@ -12,5 +12,6 @@ namespace Store.BusinessLogic.Services.Interfaces
         Task<UserModel> AddUserAsync(UserModel user);
         Task<UserModel> UpdateUserAsync(UserModel user);
         Task DeleteUserAsync(long userId);
+        Task ChangeUserStatusAsync(string email);
     }
 }

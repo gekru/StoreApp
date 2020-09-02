@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Store.BusinessLogic.Models.Users;
 using Store.BusinessLogic.Services.Interfaces;
+using Store.Shared.Enums.User;
 using System.Threading.Tasks;
 
 namespace Store.Presentation.Controllers
@@ -30,7 +32,7 @@ namespace Store.Presentation.Controllers
             var result = await _userService.GetUserByIdAsync(id);
             return Ok(result);
         }
-        
+
         [HttpPost("CreateUser", Name = "CreateNewUser")]
         public async Task<IActionResult> PostAsync(UserModel user)
         {
@@ -38,7 +40,7 @@ namespace Store.Presentation.Controllers
 
             return Ok(user);
         }
-        
+
         [HttpPost("UpdateUser")]
         public async Task<IActionResult> UpdateAsync(UserModel user)
         {
@@ -59,6 +61,14 @@ namespace Store.Presentation.Controllers
             await _userService.DeleteUserAsync(id);
 
             return Ok(currentUser);
+        }
+
+        [HttpPost("ChangeUserStatus")]
+        [Authorize(Roles = nameof(UserRole.Admin))]
+        public async Task<IActionResult> ChangeUserStatus(string email)
+        {
+            await _userService.ChangeUserStatusAsync(email);
+            return Ok();
         }
 
     }

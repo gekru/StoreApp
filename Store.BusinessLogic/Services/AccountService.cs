@@ -55,7 +55,12 @@ namespace Store.BusinessLogic.Services
 
             if (user is null)
             {
-                return null;
+                return SignInResult.Failed;
+            }
+
+            if (user.IsActive is false)
+            {
+                return SignInResult.NotAllowed;
             }
 
             return await _signInManager.PasswordSignInAsync(user, userModel.Password,

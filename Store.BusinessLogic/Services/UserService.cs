@@ -41,7 +41,7 @@ namespace Store.BusinessLogic.Services
             mapperUser.UserName = mapperUser.Email;
 
             var result = await _userManager.CreateAsync(mapperUser, user.Password);
-            
+
             if (result.Succeeded)
             {
                 await AddToRoleAsync(mapperUser, UserRole.Client.ToString());
@@ -53,7 +53,7 @@ namespace Store.BusinessLogic.Services
         public async Task<UserModel> UpdateUserAsync(UserModel user)
         {
             var currentUser = await _userManager.FindByEmailAsync(user.Email);
-            
+
             if (currentUser is null)
             {
                 user.Errors.Add("User not found");
@@ -99,5 +99,11 @@ namespace Store.BusinessLogic.Services
             return await _userManager.AddToRoleAsync(user, role);
         }
 
+        public async Task ChangeUserStatusAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            user.IsActive = !user.IsActive;
+            await _userManager.UpdateAsync(user);
+        }
     }
 }
