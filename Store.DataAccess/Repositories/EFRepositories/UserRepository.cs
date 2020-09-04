@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Store.DataAccess.AppContext;
 using Store.DataAccess.Entities;
+using Store.DataAccess.Extensions;
 using Store.DataAccess.Filters;
 using Store.DataAccess.Repositories.Base;
 using Store.DataAccess.Repositories.Interfaces;
@@ -20,13 +21,20 @@ namespace Store.DataAccess.Repositories.EFRepositories
         {
             _manager = manager;
         }
-        public async Task<IEnumerable<ApplicationUser>> GetFilteredUsersAsync(PaginationDataFilter filter)
+        public async Task<IEnumerable<ApplicationUser>> GetFilteredUsersAsync(PaginationDataFilter pageFilter, UserDataFilter userFilter)
         {
+            var users = _entityDbSet.AsQueryable();
 
-            var skip = (filter.PageNumber - 1) * filter.PageSize;
+            if (userFilter.PropertyName is not null)
+            {
+                users = users.OrderBy(userFilter.PropertyName, userFilter.SortType.ToString());
+            }
 
-            var users = await _entityDbSet.Skip(skip).Take(filter.PageSize).ToListAsync();
-            return users;
+            var skip = (pageFilter.PageNumber - 1) * pageFilter.PageSize;
+
+            var result = await users.Skip(skip).Take(pageFilter.PageSize).ToListAsync();
+
+            return result;
         }
         public async Task<IList<string>> GetRolesAsync(ApplicationUser user)
         {

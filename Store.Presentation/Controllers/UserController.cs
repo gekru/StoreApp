@@ -21,9 +21,9 @@ namespace Store.Presentation.Controllers
         }
 
         [HttpGet("GetAll", Name = "GetAllUsers")]
-        public async Task<IActionResult> GetAsync([FromQuery] PaginationFilter filter)
+        public async Task<IActionResult> GetAsync([FromQuery] PaginationFilter pageFilter, [FromQuery] UserFilter userFilter)
         {
-            var result = await _userService.GetUsersAsync(filter);
+            var result = await _userService.GetUsersAsync(pageFilter, userFilter);
             return Ok(result);
         }
 

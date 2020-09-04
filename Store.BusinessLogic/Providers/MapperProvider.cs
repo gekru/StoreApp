@@ -14,6 +14,7 @@ namespace Store.BusinessLogic.Providers
             CreateMap<ApplicationUser, UserModel>().ReverseMap();
             CreateMap<ApplicationUser, RegisterModel>().ReverseMap();
             CreateMap<PaginationFilter, PaginationDataFilter>().ReverseMap();
+            CreateMap<UserFilter, UserDataFilter>().ReverseMap();
         }
     }
 }
