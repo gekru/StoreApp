@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Store.BusinessLogic.Filters;
 using Store.BusinessLogic.Models.Users;
 using Store.BusinessLogic.Services.Interfaces;
 using Store.Shared.Enums.User;
@@ -20,9 +21,9 @@ namespace Store.Presentation.Controllers
         }
 
         [HttpGet("GetAll", Name = "GetAllUsers")]
-        public async Task<IActionResult> GetAsync()
+        public async Task<IActionResult> GetAsync([FromQuery] PaginationFilter pageFilter, [FromQuery] UserFilter userFilter)
         {
-            var result = await _userService.GetUsersAsync();
+            var result = await _userService.GetUsersAsync(pageFilter, userFilter);
             return Ok(result);
         }
 
