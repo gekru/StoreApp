@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using Store.BusinessLogic.Models.Filter;
+using Store.BusinessLogic.Filters;
 using Store.BusinessLogic.Models.Users;
 using Store.BusinessLogic.Services.Interfaces;
 using Store.DataAccess.Entities;
+using Store.DataAccess.Filters;
 using Store.DataAccess.Repositories.Interfaces;
 using Store.Shared.Enums.User;
 using System.Collections.Generic;
@@ -26,13 +27,12 @@ namespace Store.BusinessLogic.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ApplicationUser>> GetUsersAsync(PaginationFilter paginationFilter)
+        public async Task<IEnumerable<ApplicationUser>> GetUsersAsync(PaginationFilter filter)
         {
-            var result = await _userRepository.GetAllAsync();
+            var mapperFilter = _mapper.Map<PaginationDataFilter>(filter);
+            var result = await _userRepository.GetFilteredUsersAsync(mapperFilter);
 
-            return result.OrderBy(n => n.Id)
-                .Skip((paginationFilter.PageNumber - 1) * paginationFilter.PageSize)
-                .Take(paginationFilter.PageSize);
+            return result;
         }
 
         public async Task<ApplicationUser> GetUserByIdAsync(long userId)

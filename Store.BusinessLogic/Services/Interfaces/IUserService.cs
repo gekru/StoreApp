@@ -1,4 +1,4 @@
-﻿using Store.BusinessLogic.Models.Filter;
+﻿using Store.BusinessLogic.Filters;
 using Store.BusinessLogic.Models.Users;
 using Store.DataAccess.Entities;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ namespace Store.BusinessLogic.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<IEnumerable<ApplicationUser>> GetUsersAsync(PaginationFilter paginationFilter);
+        Task<IEnumerable<ApplicationUser>> GetUsersAsync(PaginationFilter filter);
         Task<ApplicationUser> GetUserByIdAsync(long userId);
         Task<UserModel> AddUserAsync(UserModel user);
         Task<UserModel> UpdateUserAsync(UserModel user);
