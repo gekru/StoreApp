@@ -8,7 +8,7 @@ namespace Store.BusinessLogic.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<IEnumerable<ApplicationUser>> GetUsersAsync(PaginationFilter filter);
+        Task<IEnumerable<ApplicationUser>> GetUsersAsync(PaginationFilter pageFilter, UserFilter userFilter);
         Task<ApplicationUser> GetUserByIdAsync(long userId);
         Task<UserModel> AddUserAsync(UserModel user);
         Task<UserModel> UpdateUserAsync(UserModel user);

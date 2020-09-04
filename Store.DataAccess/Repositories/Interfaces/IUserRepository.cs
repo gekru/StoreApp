@@ -10,6 +10,6 @@ namespace Store.DataAccess.Repositories.Interfaces
     {
         Task<IList<string>> GetRolesAsync(ApplicationUser user);
         Task<IdentityResult> AddToRoleAsync(ApplicationUser user, string role);
-        Task<IEnumerable<ApplicationUser>> GetFilteredUsersAsync(PaginationDataFilter filter);
+        Task<IEnumerable<ApplicationUser>> GetFilteredUsersAsync(PaginationDataFilter pageFilter, UserDataFilter userFilter);
     }
 }
