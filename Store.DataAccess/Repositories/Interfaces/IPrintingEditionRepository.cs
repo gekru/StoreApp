@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Store.DataAccess.Repositories.Interfaces
 {
-    public interface IPrintingEditionRepository
+    public interface IPrintingEditionRepository : IRepository<PrintingEdition>
     {
         Task<IEnumerable<PrintingEdition>> GetFilteredPrintingEditionsAsync(PaginationDataFilter pageFilter,
             PrintingEditionDataFilter printingFilter);
