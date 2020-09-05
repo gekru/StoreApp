@@ -51,9 +51,15 @@ namespace Store.Presentation
 
             services.AddTransient<IJwtProvider, JwtProvider>();
             services.AddTransient<IEmailProvider, EmailProvider>();
+
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IPrintingEditionRepository, PrintingEditionRepository>();
+            services.AddTransient<IAuthorRepository, AuthorRepository>();
+
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IPrintingEditionService, PrintingEditionService>();
+            services.AddTransient<IAuthorService, AuthorService>();
 
             // Getting section from appsetings.json
             IConfigurationSection jwtSettings = Configuration.GetSection("JwtSettings");
