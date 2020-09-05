@@ -6,7 +6,6 @@ using Store.BusinessLogic.Services.Interfaces;
 using Store.DataAccess.Entities;
 using Store.DataAccess.Filters;
 using Store.DataAccess.Repositories.Interfaces;
-using Store.Shared.Enums.User;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
