@@ -1,10 +1,12 @@
 ﻿namespace Store.Shared.Enums.Filter
 {
-    public enum SortType
+    public partial class Enums
     {
-        None = 0,
-        Ascending = 1,
-        Descending = 2
+        public enum SortType
+        {
+            None = 0,
+            Ascending = 1,
+            Descending = 2
+        }
     }
-
 }

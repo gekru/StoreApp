@@ -1,9 +1,12 @@
 ﻿namespace Store.Shared.Enums.Order
 {
-    public enum Status
+    public partial class Enums
     {
-        None = 0,
-        Paid = 1,
-        Unpaid = 2
+        public enum Status
+        {
+            None = 0,
+            Paid = 1,
+            Unpaid = 2
+        }
     }
 }

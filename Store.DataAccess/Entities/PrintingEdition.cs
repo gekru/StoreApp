@@ -1,6 +1,6 @@
 ﻿using Store.DataAccess.Entities.Base;
-using Store.Shared.Enums.PrintingEdition;
 using System.Collections.Generic;
+using static Store.Shared.Enums.PrintingEdition.Enums;
 
 namespace Store.DataAccess.Entities
 {

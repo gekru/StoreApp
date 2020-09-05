@@ -1,5 +1,5 @@
 ﻿using Store.DataAccess.Entities.Base;
-using Store.Shared.Enums.PrintingEdition;
+using static Store.Shared.Enums.PrintingEdition.Enums;
 
 namespace Store.DataAccess.Entities
 {

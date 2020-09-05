@@ -4,10 +4,10 @@ using Store.BusinessLogic.Models.Account;
 using Store.BusinessLogic.Models.Users;
 using Store.BusinessLogic.Services.Interfaces;
 using Store.DataAccess.Entities;
-using Store.Shared.Enums.User;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static Store.Shared.Enums.User.Enums;
 
 namespace Store.BusinessLogic.Services
 {

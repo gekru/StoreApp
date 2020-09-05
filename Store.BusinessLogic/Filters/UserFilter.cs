@@ -1,4 +1,4 @@
-﻿using Store.Shared.Enums.Filter;
+﻿using static Store.Shared.Enums.Filter.Enums;
 
 namespace Store.BusinessLogic.Filters
 {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Store.DataAccess.Entities.Base;
-using Store.Shared.Enums.Order;
+using static Store.Shared.Enums.Order.Enums;
 
 namespace Store.DataAccess.Entities
 {

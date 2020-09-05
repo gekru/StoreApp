@@ -10,6 +10,7 @@ using Store.Shared.Enums.User;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static Store.Shared.Enums.User.Enums;
 
 namespace Store.BusinessLogic.Services
 {

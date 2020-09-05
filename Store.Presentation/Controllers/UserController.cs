@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Store.BusinessLogic.Filters;
 using Store.BusinessLogic.Models.Users;
 using Store.BusinessLogic.Services.Interfaces;
-using Store.Shared.Enums.User;
 using System.Threading.Tasks;
+using static Store.Shared.Enums.User.Enums;
 
 namespace Store.Presentation.Controllers
 {

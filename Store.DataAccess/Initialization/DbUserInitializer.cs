@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Store.DataAccess.Entities;
-using Store.Shared.Enums.User;
 using System.Threading.Tasks;
+using static Store.Shared.Enums.User.Enums;
 
 namespace Store.DataAccess.Initialization
 {
