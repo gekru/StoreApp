@@ -1,14 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Store.DataAccess.AppContext;
+using Store.DataAccess.Entities.Base;
 using Store.DataAccess.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Store.DataAccess.Repositories.Base
 {
-    public class BaseEFRepository<T> : IRepository<T> where T : class
+    public class BaseEFRepository<T> : IRepository<T> where T : class, IBaseEntity
     {
-        private readonly ApplicationContext _context;
+        protected readonly ApplicationContext _context;
         protected DbSet<T> _entityDbSet;
         public BaseEFRepository(ApplicationContext context)
         {
@@ -26,16 +27,20 @@ namespace Store.DataAccess.Repositories.Base
             return await _entityDbSet.FindAsync(id);
         }
 
-        public async Task CreateAsync(T entity)
+        public async Task<T> CreateAsync(T entity)
         {
-            await _entityDbSet.AddAsync(entity);
+            var entityEntry = await _entityDbSet.AddAsync(entity);
+            entity = entityEntry.Entity;
             await _context.SaveChangesAsync();
+            return entity;
         }
 
-        public async Task UpdateAsync(T entity)
+        public virtual async Task<T> UpdateAsync(T entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            var currentEntity = await _entityDbSet.FirstOrDefaultAsync(ce => ce.Id == entity.Id);
+            currentEntity = _context.Update(entity).Entity;
             await _context.SaveChangesAsync();
+            return currentEntity;
         }
 
         public async Task DeleteAsync(long id)

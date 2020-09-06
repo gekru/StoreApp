@@ -31,6 +31,10 @@ namespace Store.Presentation.Controllers
         public async Task<IActionResult> GetUserByIdAsync(long id)
         {
             var result = await _userService.GetUserByIdAsync(id);
+            if (result is null)
+            {
+                return NotFound();
+            }
             return Ok(result);
         }
 
@@ -52,16 +56,16 @@ namespace Store.Presentation.Controllers
         [HttpDelete("DeleteUser/{id}", Name = "DeleteUser")]
         public async Task<IActionResult> DeleteAync(long id)
         {
-            var currentUser = await GetUserByIdAsync(id);
+            var result = await _userService.GetUserByIdAsync(id);
 
-            if (currentUser == null)
+            if (result is null)
             {
                 return NotFound();
             }
 
             await _userService.DeleteUserAsync(id);
 
-            return Ok(currentUser);
+            return Ok(result);
         }
 
         [HttpPost("ChangeUserStatus")]

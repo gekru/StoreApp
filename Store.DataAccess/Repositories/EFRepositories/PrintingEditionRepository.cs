@@ -33,5 +33,18 @@ namespace Store.DataAccess.Repositories.EFRepositories
 
             return result;
         }
+
+        public override async Task<PrintingEdition> UpdateAsync(PrintingEdition printingEdition)
+        {
+            var entity = await _entityDbSet.FindAsync(printingEdition.Id);
+            entity.Description = printingEdition.Description;
+            entity.Currency = printingEdition.Currency;
+            entity.Title = printingEdition.Title;
+            entity.Type = printingEdition.Type;
+            entity.Price = printingEdition.Price;
+            entity = _entityDbSet.Update(entity).Entity;
+            await _context.SaveChangesAsync();
+            return entity;
+        }
     }
 }

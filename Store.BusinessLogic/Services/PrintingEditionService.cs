@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Store.BusinessLogic.Filters;
+using Store.BusinessLogic.Models.PrintingEditions;
 using Store.BusinessLogic.Services.Interfaces;
 using Store.DataAccess.Entities;
 using Store.DataAccess.Filters;
@@ -31,5 +32,28 @@ namespace Store.BusinessLogic.Services
             return result;
         }
 
+        public async Task<PrintingEdition> GetPrintingEditionByIdAsync(long printingId)
+        {
+            return await _repository.GetByIdAsync(printingId);
+        }
+
+        public async Task<PrintingEdition> CreatePrintingEditionAsync(PrintingEditionModel printingModel)
+        {
+            var mapperPrinting = _mapper.Map<PrintingEdition>(printingModel);
+
+            return await _repository.CreateAsync(mapperPrinting);
+        }
+
+        public async Task DeletePrintingEditionAsync(long printinId)
+        {
+            await _repository.DeleteAsync(printinId);
+        }
+
+        public async Task UpdateUserAsync(PrintingEditionModel printingModel)
+        {
+            var mapperPrinting = _mapper.Map<PrintingEdition>(printingModel);
+
+            await _repository.UpdateAsync(mapperPrinting);
+        }
     }
 }
