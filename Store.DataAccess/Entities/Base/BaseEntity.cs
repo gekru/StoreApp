@@ -2,7 +2,7 @@
 
 namespace Store.DataAccess.Entities.Base
 {
-    public class BaseEntity
+    public class BaseEntity : IBaseEntity
     {
         public long Id { get; set; }
         public DateTime CreationDate { get; set; }
