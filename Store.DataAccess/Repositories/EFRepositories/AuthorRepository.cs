@@ -32,5 +32,14 @@ namespace Store.DataAccess.Repositories.EFRepositories
 
             return result;
         }
+
+        public override async Task<Author> UpdateAsync(Author author)
+        {
+            var entity = await _entityDbSet.FindAsync(author.Id);
+            entity.Name = author.Name;
+            entity = _entityDbSet.Update(entity).Entity;
+            await _context.SaveChangesAsync();
+            return entity;
+        }
     }
 }
