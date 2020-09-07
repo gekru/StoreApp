@@ -49,7 +49,7 @@ namespace Store.BusinessLogic.Services
             await _repository.DeleteAsync(printinId);
         }
 
-        public async Task UpdateUserAsync(PrintingEditionModel printingModel)
+        public async Task UpdatePrintingEditionAsync(PrintingEditionModel printingModel)
         {
             var mapperPrinting = _mapper.Map<PrintingEdition>(printingModel);
 
