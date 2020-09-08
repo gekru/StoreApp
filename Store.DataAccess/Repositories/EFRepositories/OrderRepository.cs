@@ -26,7 +26,8 @@ namespace Store.DataAccess.Repositories.EFRepositories
             {
                 authors = authors.OrderBy(orderFilter.PropertyName, orderFilter.SortType.ToString());
             }
-            var skip = (pageFilter.PageNumber - 1) * pageFilter.PageSize;
+
+            var skip = (pageFilter.PageNumber - pageFilter.firstPage) * pageFilter.PageSize;
 
             var result = await authors.Skip(skip).Take(pageFilter.PageSize).ToListAsync();
 

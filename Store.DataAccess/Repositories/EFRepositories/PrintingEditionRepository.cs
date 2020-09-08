@@ -27,7 +27,8 @@ namespace Store.DataAccess.Repositories.EFRepositories
             {
                 printingEditions = printingEditions.OrderBy(printingFilter.PropertyName, printingFilter.SortType.ToString());
             }
-            var skip = (pageFilter.PageNumber - 1) * pageFilter.PageSize;
+            
+            var skip = (pageFilter.PageNumber - pageFilter.firstPage) * pageFilter.PageSize;
 
             var result = await printingEditions.Skip(skip).Take(pageFilter.PageSize).ToListAsync();
 

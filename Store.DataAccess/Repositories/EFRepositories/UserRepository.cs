@@ -30,7 +30,7 @@ namespace Store.DataAccess.Repositories.EFRepositories
                 users = users.OrderBy(userFilter.PropertyName, userFilter.SortType.ToString());
             }
 
-            var skip = (pageFilter.PageNumber - 1) * pageFilter.PageSize;
+            var skip = (pageFilter.PageNumber - pageFilter.firstPage) * pageFilter.PageSize;
 
             var result = await users.Skip(skip).Take(pageFilter.PageSize).ToListAsync();
 
