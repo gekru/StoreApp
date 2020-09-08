@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using static Store.Shared.Enums.Filter.Enums;
+using static Store.Shared.Enums.Enums;
 
 namespace Store.DataAccess.Extensions
 {

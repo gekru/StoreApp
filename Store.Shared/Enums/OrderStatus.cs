@@ -1,8 +1,8 @@
-﻿namespace Store.Shared.Enums.Order
+﻿namespace Store.Shared.Enums
 {
     public partial class Enums
     {
-        public enum Status
+        public enum OrderStatus
         {
             None = 0,
             Paid = 1,

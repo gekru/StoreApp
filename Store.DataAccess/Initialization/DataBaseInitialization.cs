@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Store.DataAccess.Entities;
-using static Store.Shared.Enums.Order.Enums;
-using static Store.Shared.Enums.PrintingEdition.Enums;
-using static Store.Shared.Enums.User.Enums;
+using static Store.Shared.Enums.Enums;
 
 namespace Store.DataAccess.Initialization
 {
@@ -62,7 +60,7 @@ namespace Store.DataAccess.Initialization
                     Price = 16.2M,
                     IsRemoved = false,
                     Currency = Currency.USD,
-                    Type = Type.Book
+                    Type = PrintingEditionType.Book
                 },
                 new PrintingEdition()
                 {
@@ -72,7 +70,7 @@ namespace Store.DataAccess.Initialization
                     Price = 8M,
                     IsRemoved = true,
                     Currency = Currency.USD,
-                    Type = Type.Journal
+                    Type = PrintingEditionType.Journal
                 } };
 
             var userRoles = new[]
@@ -106,7 +104,7 @@ namespace Store.DataAccess.Initialization
                     Id = 1,
                     Description = "Book order",
                     ApplicationUserId = 1,
-                    Status = Status.Paid,
+                    Status = OrderStatus.Paid,
                     PaymentId = 1,
                     IsRemoved = false
                 },
@@ -115,7 +113,7 @@ namespace Store.DataAccess.Initialization
                     Id = 2,
                     Description = "Journal order",
                     ApplicationUserId = 3,
-                    Status = Status.Unpaid,
+                    Status = OrderStatus.Unpaid,
                     PaymentId = 2,
                     IsRemoved = false
                 }

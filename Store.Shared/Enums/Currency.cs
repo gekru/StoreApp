@@ -1,4 +1,4 @@
-﻿namespace Store.Shared.Enums.PrintingEdition
+﻿namespace Store.Shared.Enums
 {
     public partial class Enums
     {

@@ -1,4 +1,4 @@
-﻿namespace Store.Shared.Enums.Filter
+﻿namespace Store.Shared.Enums
 {
     public partial class Enums
     {

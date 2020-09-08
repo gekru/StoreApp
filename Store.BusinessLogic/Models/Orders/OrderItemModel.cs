@@ -1,6 +1,6 @@
 ﻿using Store.BusinessLogic.Models.Base;
 using Store.BusinessLogic.Models.PrintingEditions;
-using static Store.Shared.Enums.PrintingEdition.Enums;
+using static Store.Shared.Enums.Enums;
 
 namespace Store.BusinessLogic.Models.Orders
 {

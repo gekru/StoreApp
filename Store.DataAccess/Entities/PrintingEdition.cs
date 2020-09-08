@@ -1,6 +1,6 @@
 ﻿using Store.DataAccess.Entities.Base;
 using System.Collections.Generic;
-using static Store.Shared.Enums.PrintingEdition.Enums;
+using static Store.Shared.Enums.Enums;
 
 namespace Store.DataAccess.Entities
 {
@@ -10,7 +10,7 @@ namespace Store.DataAccess.Entities
         public string Description { get; set; }
         public decimal Price { get; set; }
         public Currency Currency { get; set; }
-        public Type Type { get; set; }
+        public PrintingEditionType Type { get; set; }
 
         public ICollection<AuthorInPrintingEdition> AuthorInPrintingEdition { get; set; }
         public ICollection<OrderItem> OrderItems { get; set; }

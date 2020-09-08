@@ -7,7 +7,7 @@ using Store.DataAccess.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static Store.Shared.Enums.User.Enums;
+using static Store.Shared.Enums.Enums;
 
 namespace Store.BusinessLogic.Services
 {

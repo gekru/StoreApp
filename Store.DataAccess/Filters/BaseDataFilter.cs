@@ -1,4 +1,4 @@
-﻿using static Store.Shared.Enums.Filter.Enums;
+﻿using static Store.Shared.Enums.Enums;
 
 namespace Store.DataAccess.Filters
 {

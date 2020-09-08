@@ -1,5 +1,5 @@
 ﻿using Store.BusinessLogic.Models.Base;
-using static Store.Shared.Enums.PrintingEdition.Enums;
+using static Store.Shared.Enums.Enums;
 
 namespace Store.BusinessLogic.Models.PrintingEditions
 {
@@ -9,6 +9,6 @@ namespace Store.BusinessLogic.Models.PrintingEditions
         public string Description { get; set; }
         public decimal Price { get; set; }
         public Currency Currency { get; set; }
-        public Type Type { get; set; }
+        public PrintingEditionType Type { get; set; }
     }
 }
