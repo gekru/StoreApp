@@ -43,7 +43,7 @@ namespace Store.DataAccess.Repositories.EFRepositories
             entity.Type = printingEdition.Type;
             entity.Price = printingEdition.Price;
             entity = _entityDbSet.Update(entity).Entity;
-            await _context.SaveChangesAsync();
+            await SaveAsync();
             return entity;
         }
     }

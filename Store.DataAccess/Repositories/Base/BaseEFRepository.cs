@@ -9,7 +9,7 @@ namespace Store.DataAccess.Repositories.Base
 {
     public class BaseEFRepository<T> : IRepository<T> where T : class, IBaseEntity
     {
-        protected readonly ApplicationContext _context;
+        private readonly ApplicationContext _context;
         protected DbSet<T> _entityDbSet;
         public BaseEFRepository(ApplicationContext context)
         {
@@ -29,8 +29,7 @@ namespace Store.DataAccess.Repositories.Base
 
         public async Task<T> CreateAsync(T entity)
         {
-            var entityEntry = await _entityDbSet.AddAsync(entity);
-            entity = entityEntry.Entity;
+            await _entityDbSet.AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity;
         }

@@ -38,7 +38,7 @@ namespace Store.DataAccess.Repositories.EFRepositories
             var entity = await _entityDbSet.FindAsync(author.Id);
             entity.Name = author.Name;
             entity = _entityDbSet.Update(entity).Entity;
-            await _context.SaveChangesAsync();
+            await SaveAsync();
             return entity;
         }
     }
