@@ -11,7 +11,7 @@ namespace Store.DataAccess.Entities.Base
         public BaseEntity()
         {
             // Initializing current time
-            CreationDate = DateTime.Now;
+            CreationDate = DateTime.UtcNow;
         }
     }
 }
