@@ -2,6 +2,7 @@
 using Store.BusinessLogic.Filters;
 using Store.BusinessLogic.Models.Account;
 using Store.BusinessLogic.Models.Authors;
+using Store.BusinessLogic.Models.Orders;
 using Store.BusinessLogic.Models.PrintingEditions;
 using Store.BusinessLogic.Models.Users;
 using Store.DataAccess.Entities;
@@ -23,6 +24,7 @@ namespace Store.BusinessLogic.Providers
                 .ForMember(dest => dest.LastName, act => act.MapFrom(src => src.Name.Split().LastOrDefault()))
                 .ReverseMap()
                 .ForPath(dest => dest.Name, opt => opt.MapFrom(src => string.Join(" ", src.FirstName, src.LastName)));
+            CreateMap<Order, OrderModel>().ReverseMap();
 
             // Filters
             CreateMap<BaseDataFilter, BaseFilter>().ReverseMap();
@@ -30,6 +32,7 @@ namespace Store.BusinessLogic.Providers
             CreateMap<UserFilter, UserDataFilter>().ReverseMap();
             CreateMap<AuthorDataFilter, AuthorFilter>().ReverseMap();
             CreateMap<PrintingEditionDataFilter, PrintingEditionFilter>().ReverseMap();
+            CreateMap<OrderDataFilter, OrderFilter>().ReverseMap();
         }
     }
 }
