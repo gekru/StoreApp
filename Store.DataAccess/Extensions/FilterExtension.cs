@@ -7,13 +7,13 @@ namespace Store.DataAccess.Extensions
 {
     public static class FilterExtension
     {
-        public const string OrderByCommand = "OrderBy";
-        public const string OrderByDescendingCommand = "OrderByDescending";
+        public const string ORDER_BY_COMMAND = "OrderBy";
+        public const string ORDER_BY_DESCENDING_COMMAND = "OrderByDescending";
 
         public static IQueryable<TEntity> OrderBy<TEntity>(this IQueryable<TEntity> source, 
             string orderByProperty, string sortType)
         {
-            string commandName = sortType == SortType.Descending.ToString() ? OrderByDescendingCommand : OrderByCommand;
+            string commandName = sortType == SortType.Descending.ToString() ? ORDER_BY_DESCENDING_COMMAND : ORDER_BY_COMMAND;
             var type = typeof(TEntity);
             var property = type.GetProperty(orderByProperty);
             var parameter = Expression.Parameter(type, "p");
