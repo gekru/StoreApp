@@ -101,7 +101,13 @@ namespace Store.BusinessLogic.Services
             {
                 return;
             }
+
             var user = await _userManager.FindByEmailAsync(email);
+            
+            if (user is null)
+            {
+                return;
+            }
 
             await _userManager.ConfirmEmailAsync(user, token);
         }
