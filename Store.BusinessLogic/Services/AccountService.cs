@@ -31,13 +31,7 @@ namespace Store.BusinessLogic.Services
 
             var result = await _userManager.CreateAsync(mapperUser, user.Password);
 
-            if (result.Succeeded)
-            {
-                await AddToRoleAsync(mapperUser, UserRole.Client.ToString());
-
-                user.Token = await _userManager.GenerateEmailConfirmationTokenAsync(mapperUser);
-            }
-            else
+            if (!result.Succeeded)
             {
                 int errorCount = 1;
                 result.Errors.ToList().ForEach(item =>
@@ -46,6 +40,11 @@ namespace Store.BusinessLogic.Services
                 });
                 return user;
             }
+
+            await AddToRoleAsync(mapperUser, UserRole.Client.ToString());
+
+            user.Token = await _userManager.GenerateEmailConfirmationTokenAsync(mapperUser);
+
             return user;
         }
 

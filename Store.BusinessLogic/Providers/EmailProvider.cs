@@ -23,7 +23,7 @@ namespace Store.BusinessLogic.Providers
             string senderName = emailSettings["SenderName"];
             string senderPassword = emailSettings["SenderPassword"];
 
-            MailAddress fromMailAddress = new MailAddress(senderMail, senderName); ;
+            MailAddress fromMailAddress = new MailAddress(senderMail, senderName);
             MailAddress toMailAddress = new MailAddress(recipientMail);
 
             MailMessage mailMessage = new MailMessage(fromMailAddress, toMailAddress)

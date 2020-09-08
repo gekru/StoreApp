@@ -33,7 +33,12 @@ namespace Store.Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _accountService.RegisterUserAsync(user);
+                var result = await _accountService.RegisterUserAsync(user);
+
+                if (result.Errors.Count > 0)
+                {
+                    return Ok(result.Errors);
+                }
 
                 var callbackUrl = Url.Action(
                     action: nameof(ConfirmEmail),
