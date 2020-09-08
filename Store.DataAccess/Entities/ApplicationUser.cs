@@ -1,15 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Store.DataAccess.Entities.Base;
 using System;
 using System.Collections.Generic;
 
 namespace Store.DataAccess.Entities
 {
-    public class ApplicationUser : IdentityUser<long>, IBaseEntity
+    public class ApplicationUser : IdentityUser<long>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public bool IsRemoved { get; set; }
         public DateTime CreationDate { get; set; }
 
         /// <summary>
@@ -21,6 +19,7 @@ namespace Store.DataAccess.Entities
         public ApplicationUser()
         {
             IsActive = true;
+            CreationDate = DateTime.UtcNow;
         }
     }
 }

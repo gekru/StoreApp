@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Store.DataAccess.Repositories.Base
 {
-    public class BaseEFRepository<T> : IRepository<T> where T : class, IBaseEntity
+    public class BaseEFRepository<T> : IRepository<T> where T : class
     {
         private readonly ApplicationContext _context;
         protected DbSet<T> _entityDbSet;
@@ -36,10 +36,9 @@ namespace Store.DataAccess.Repositories.Base
 
         public virtual async Task<T> UpdateAsync(T entity)
         {
-            var currentEntity = await _entityDbSet.FirstOrDefaultAsync(ce => ce.Id == entity.Id);
-            currentEntity = _context.Update(entity).Entity;
+            _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-            return currentEntity;
+            return entity;
         }
 
         public async Task DeleteAsync(long id)

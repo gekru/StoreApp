@@ -47,13 +47,15 @@ namespace Store.Presentation.Controllers
         [HttpPost("UpdateAuthor")]
         public async Task<IActionResult> Update(AuthorModel authorModel)
         {
-            var result = await _authorService.GetAuthorByIdAsync(authorModel.Id);
-            if (result is null)
+            try
+            {
+                await _authorService.UpdateAuthorAsync(authorModel);
+                return Ok(authorModel);
+            }
+            catch (System.Exception)
             {
                 return NotFound();
             }
-            await _authorService.UpdateAuthorAsync(authorModel);
-            return Ok(authorModel);
         }
 
         [HttpDelete("DeleteAuthor")]
