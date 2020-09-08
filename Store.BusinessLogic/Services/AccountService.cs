@@ -103,9 +103,8 @@ namespace Store.BusinessLogic.Services
                 return;
             }
             var user = await _userManager.FindByEmailAsync(email);
-            var mapperUser = _mapper.Map<ApplicationUser>(user);
 
-            await _userManager.ConfirmEmailAsync(mapperUser, token);
+            await _userManager.ConfirmEmailAsync(user, token);
         }
 
         public async Task<UserModel> FindByEmailAsync(string email)
