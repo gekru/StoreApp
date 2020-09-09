@@ -7,8 +7,6 @@ using Store.BusinessLogic.Providers.Interfaces;
 using Store.BusinessLogic.Services.Interfaces;
 using Store.Presentation.Providers.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Store.Presentation.Controllers
@@ -56,14 +54,14 @@ namespace Store.Presentation.Controllers
             return Ok(user);
         }
 
-        [HttpGet("ConfirnEmail")]
+        [HttpGet("ConfirmEmail")]
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string email, string token)
         {
             await _accountService.ConfirmEmailAsync(email, token);
             return Ok();
         }
-
+        
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginModel loginModel)
         {
@@ -83,14 +81,7 @@ namespace Store.Presentation.Controllers
             userModel = await _accountService.FindByEmailAsync(userModel.Email);
             userModel.Roles = await _accountService.GetRolesAsync(userModel.Email) as List<string>;
 
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, userModel.Id.ToString()),
-                new Claim(ClaimsIdentity.DefaultNameClaimType, userModel.Email),
-                new Claim(ClaimsIdentity.DefaultNameClaimType, userModel.FirstName),
-                new Claim(ClaimsIdentity.DefaultNameClaimType, userModel.LastName),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, userModel.Roles.FirstOrDefault())
-            };
+            var claims = _accountService.GetUserClaims(userModel);
 
             var accessToken = _jwtProvider.GenerateAccessToken(claims);
             var refreshToekn = _jwtProvider.GenerateRefreshToken();

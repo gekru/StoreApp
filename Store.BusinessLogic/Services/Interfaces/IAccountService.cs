@@ -3,6 +3,7 @@ using Store.BusinessLogic.Models.Account;
 using Store.BusinessLogic.Models.Users;
 using Store.DataAccess.Entities;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Store.BusinessLogic.Services.Interfaces
@@ -14,6 +15,7 @@ namespace Store.BusinessLogic.Services.Interfaces
         Task<UserModel> FindByEmailAsync(string email);
         Task ForgotPasswordAsync(ForgotPasswordModel model);
         Task<IList<string>> GetRolesAsync(string email);
+        List<Claim> GetUserClaims(UserModel userModel);
         Task<SignInResult> LoginAsync(UserModel userModel);
         Task LogoutAsync();
         Task<RegisterModel> RegisterUserAsync(RegisterModel user);

@@ -6,6 +6,7 @@ using Store.BusinessLogic.Services.Interfaces;
 using Store.DataAccess.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims; 
 using System.Threading.Tasks;
 using static Store.Shared.Enums.Enums;
 
@@ -103,13 +104,27 @@ namespace Store.BusinessLogic.Services
             }
 
             var user = await _userManager.FindByEmailAsync(email);
-            
+
             if (user is null)
             {
                 return;
             }
 
             await _userManager.ConfirmEmailAsync(user, token);
+        }
+
+        public List<Claim> GetUserClaims(UserModel userModel)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimsIdentity.DefaultNameClaimType, userModel.Id.ToString()),
+                new Claim(ClaimsIdentity.DefaultNameClaimType, userModel.Email),
+                new Claim(ClaimsIdentity.DefaultNameClaimType, userModel.FirstName),
+                new Claim(ClaimsIdentity.DefaultNameClaimType, userModel.LastName),
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, userModel.Roles.FirstOrDefault())
+            };
+
+            return claims;
         }
 
         public async Task<UserModel> FindByEmailAsync(string email)
