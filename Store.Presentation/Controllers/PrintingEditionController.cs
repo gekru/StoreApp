@@ -18,7 +18,7 @@ namespace Store.Presentation.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAsync([FromQuery] PaginationFilter pageFilter,
+        public async Task<IActionResult> GetAll([FromQuery] PaginationFilter pageFilter,
             [FromQuery] PrintingEditionFilter filter)
         {
             var result = await _printingService.GetPrintingEditionsAsync(pageFilter, filter);
