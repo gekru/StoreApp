@@ -1,6 +1,6 @@
 ﻿namespace Store.BusinessLogic.Filters
 {
-    public class AuthorFilter : BaseFilter
+    public class OrderFilterModel : BaseFilterModel
     {
         
     }

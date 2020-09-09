@@ -2,7 +2,7 @@
 
 namespace Store.BusinessLogic.Filters
 {
-    public class BaseFilter
+    public class BaseFilterModel
     {
         public string PropertyName { get; set; }
         public SortType SortType { get; set; }

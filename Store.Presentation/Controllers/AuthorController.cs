@@ -18,8 +18,8 @@ namespace Store.Presentation.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAsync([FromQuery] PaginationFilter pageFilter,
-            [FromQuery] AuthorFilter authorFilter)
+        public async Task<IActionResult> GetAsync([FromQuery] PaginationFilterModel pageFilter,
+            [FromQuery] AuthorFilterModel authorFilter)
         {
             var result = await _authorService.GetAuthorsAsync(pageFilter, authorFilter);
             return Ok(result);

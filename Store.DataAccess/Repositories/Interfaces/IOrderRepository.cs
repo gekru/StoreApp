@@ -7,6 +7,6 @@ namespace Store.DataAccess.Repositories.Interfaces
 {
     public interface IOrderRepository : IRepository<Order>
     {
-        Task<IEnumerable<Order>> GetFilteredOrdersAsync(PaginationDataFilter pageFilter, OrderDataFilter orderFilter);
+        Task<IEnumerable<Order>> GetFilteredOrdersAsync(PaginationDataFilterModel pageFilter, OrderDataFilterModel orderFilter);
     }
 }

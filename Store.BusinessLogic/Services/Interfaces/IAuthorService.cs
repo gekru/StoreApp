@@ -11,7 +11,7 @@ namespace Store.BusinessLogic.Services.Interfaces
         Task<Author> CreateAuthorAsync(AuthorModel authorModel);
         Task DeleteAuthorAsync(long authorId);
         Task<Author> GetAuthorByIdAsync(long authorId);
-        Task<IEnumerable<Author>> GetAuthorsAsync(PaginationFilter pageFilter, AuthorFilter authorFilter);
+        Task<IEnumerable<Author>> GetAuthorsAsync(PaginationFilterModel pageFilter, AuthorFilterModel authorFilter);
         Task UpdateAuthorAsync(AuthorModel authorModel);
     }
 }

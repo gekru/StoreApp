@@ -18,8 +18,8 @@ namespace Store.Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] PaginationFilter paginationFilter,
-            [FromQuery] OrderFilter orderFilter)
+        public async Task<IActionResult> GetAll([FromQuery] PaginationFilterModel paginationFilter,
+            [FromQuery] OrderFilterModel orderFilter)
         {
             var result = await _orderService.GetOrdersAsync(paginationFilter, orderFilter);
             return Ok(result);

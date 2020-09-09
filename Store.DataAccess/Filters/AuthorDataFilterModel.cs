@@ -1,6 +1,6 @@
 ﻿namespace Store.DataAccess.Filters
 {
-    public class UserDataFilter : BaseDataFilter
+    public class AuthorDataFilterModel : BaseDataFilterModel
     {
         
     }

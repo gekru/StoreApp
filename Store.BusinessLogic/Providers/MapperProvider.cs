@@ -27,12 +27,12 @@ namespace Store.BusinessLogic.Providers
             CreateMap<Order, OrderModel>().ReverseMap();
 
             // Filters
-            CreateMap<BaseDataFilter, BaseFilter>().ReverseMap();
-            CreateMap<PaginationFilter, PaginationDataFilter>().ReverseMap();
-            CreateMap<UserFilter, UserDataFilter>().ReverseMap();
-            CreateMap<AuthorDataFilter, AuthorFilter>().ReverseMap();
-            CreateMap<PrintingEditionDataFilter, PrintingEditionFilter>().ReverseMap();
-            CreateMap<OrderDataFilter, OrderFilter>().ReverseMap();
+            CreateMap<BaseDataFilterModel, BaseFilterModel>().ReverseMap();
+            CreateMap<PaginationFilterModel, PaginationDataFilterModel>().ReverseMap();
+            CreateMap<UserFilterModel, UserDataFilterModel>().ReverseMap();
+            CreateMap<AuthorDataFilterModel, AuthorFilterModel>().ReverseMap();
+            CreateMap<PrintingEditionDataFilterModel, PrintingEditionFilterModel>().ReverseMap();
+            CreateMap<OrderDataFilterModel, OrderFilterModel>().ReverseMap();
         }
     }
 }

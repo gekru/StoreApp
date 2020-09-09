@@ -17,8 +17,8 @@ namespace Store.DataAccess.Repositories.EFRepositories
         {
         }
 
-        public async Task<IEnumerable<Author>> GetFilteredAuthorsAsync(PaginationDataFilter pageFilter,
-            AuthorDataFilter authorFilter)
+        public async Task<IEnumerable<Author>> GetFilteredAuthorsAsync(PaginationDataFilterModel pageFilter,
+            AuthorDataFilterModel authorFilter)
         {
             var authors = _entityDbSet.AsQueryable();
 

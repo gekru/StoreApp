@@ -21,11 +21,11 @@ namespace Store.BusinessLogic.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<PrintingEdition>> GetPrintingEditionsAsync(PaginationFilter pageFilter,
-            PrintingEditionFilter printingFilter)
+        public async Task<IEnumerable<PrintingEdition>> GetPrintingEditionsAsync(PaginationFilterModel pageFilter,
+            PrintingEditionFilterModel printingFilter)
         {
-            var mapperPageFilter = _mapper.Map<PaginationDataFilter>(pageFilter);
-            var mappePrintingFilter = _mapper.Map<PrintingEditionDataFilter>(printingFilter);
+            var mapperPageFilter = _mapper.Map<PaginationDataFilterModel>(pageFilter);
+            var mappePrintingFilter = _mapper.Map<PrintingEditionDataFilterModel>(printingFilter);
 
             var result = await _repository.GetFilteredPrintingEditionsAsync(mapperPageFilter, mappePrintingFilter);
 

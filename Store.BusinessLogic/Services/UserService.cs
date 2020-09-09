@@ -27,10 +27,10 @@ namespace Store.BusinessLogic.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ApplicationUser>> GetUsersAsync(PaginationFilter pageFilter, UserFilter userFilter)
+        public async Task<IEnumerable<ApplicationUser>> GetUsersAsync(PaginationFilterModel pageFilter, UserFilterModel userFilter)
         {
-            var mapperPageFilter = _mapper.Map<PaginationDataFilter>(pageFilter);
-            var mapperUserFilter = _mapper.Map<UserDataFilter>(userFilter);
+            var mapperPageFilter = _mapper.Map<PaginationDataFilterModel>(pageFilter);
+            var mapperUserFilter = _mapper.Map<UserDataFilterModel>(userFilter);
 
             var result = await _userRepository.GetFilteredUsersAsync(mapperPageFilter, mapperUserFilter);
 

@@ -21,11 +21,11 @@ namespace Store.BusinessLogic.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Order>> GetOrdersAsync(PaginationFilter pageFilter,
-            OrderFilter orderFilter)
+        public async Task<IEnumerable<Order>> GetOrdersAsync(PaginationFilterModel pageFilter,
+            OrderFilterModel orderFilter)
         {
-            var mapperPageFilter = _mapper.Map<PaginationDataFilter>(pageFilter);
-            var mappeOrderFilter = _mapper.Map<OrderDataFilter>(orderFilter);
+            var mapperPageFilter = _mapper.Map<PaginationDataFilterModel>(pageFilter);
+            var mappeOrderFilter = _mapper.Map<OrderDataFilterModel>(orderFilter);
 
             var result = await _orderRepository.GetFilteredOrdersAsync(mapperPageFilter, mappeOrderFilter);
 

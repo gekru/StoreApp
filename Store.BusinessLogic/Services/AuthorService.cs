@@ -21,11 +21,11 @@ namespace Store.BusinessLogic.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Author>> GetAuthorsAsync(PaginationFilter pageFilter,
-           AuthorFilter authorFilter)
+        public async Task<IEnumerable<Author>> GetAuthorsAsync(PaginationFilterModel pageFilter,
+           AuthorFilterModel authorFilter)
         {
-            var mapperPageFilter = _mapper.Map<PaginationDataFilter>(pageFilter);
-            var mappeAuthorFilter = _mapper.Map<AuthorDataFilter>(authorFilter);
+            var mapperPageFilter = _mapper.Map<PaginationDataFilterModel>(pageFilter);
+            var mappeAuthorFilter = _mapper.Map<AuthorDataFilterModel>(authorFilter);
 
             var result = await _repository.GetFilteredAuthorsAsync(mapperPageFilter, mappeAuthorFilter);
 

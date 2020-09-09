@@ -1,6 +1,6 @@
 ﻿namespace Store.BusinessLogic.Filters
 {
-    public class PaginationFilter
+    public class PaginationFilterModel
     {
         // Default values 
         private int _pageNumberByDefault = 1;

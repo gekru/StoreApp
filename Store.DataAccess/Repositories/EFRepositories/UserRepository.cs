@@ -21,7 +21,7 @@ namespace Store.DataAccess.Repositories.EFRepositories
         {
             _manager = manager;
         }
-        public async Task<IEnumerable<ApplicationUser>> GetFilteredUsersAsync(PaginationDataFilter pageFilter, UserDataFilter userFilter)
+        public async Task<IEnumerable<ApplicationUser>> GetFilteredUsersAsync(PaginationDataFilterModel pageFilter, UserDataFilterModel userFilter)
         {
             var users = _entityDbSet.AsQueryable();
 

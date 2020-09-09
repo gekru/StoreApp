@@ -18,8 +18,8 @@ namespace Store.DataAccess.Repositories.EFRepositories
         {
         }
 
-        public async Task<IEnumerable<PrintingEdition>> GetFilteredPrintingEditionsAsync(PaginationDataFilter pageFilter,
-            PrintingEditionDataFilter printingFilter)
+        public async Task<IEnumerable<PrintingEdition>> GetFilteredPrintingEditionsAsync(PaginationDataFilterModel pageFilter,
+            PrintingEditionDataFilterModel printingFilter)
         {
             var printingEditions = _entityDbSet.AsQueryable();
 

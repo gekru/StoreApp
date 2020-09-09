@@ -18,8 +18,8 @@ namespace Store.Presentation.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll([FromQuery] PaginationFilter pageFilter,
-            [FromQuery] PrintingEditionFilter filter)
+        public async Task<IActionResult> GetAll([FromQuery] PaginationFilterModel pageFilter,
+            [FromQuery] PrintingEditionFilterModel filter)
         {
             var result = await _printingService.GetPrintingEditionsAsync(pageFilter, filter);
             return Ok(result);

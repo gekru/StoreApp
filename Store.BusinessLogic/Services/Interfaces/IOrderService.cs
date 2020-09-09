@@ -11,7 +11,7 @@ namespace Store.BusinessLogic.Services.Interfaces
         Task<Order> CreateOrderAsync(OrderModel orderModel);
         Task DeleteOrderAsync(long orderId);
         Task<Order> GetOrderByIdAsync(long orderId);
-        Task<IEnumerable<Order>> GetOrdersAsync(PaginationFilter pageFilter, OrderFilter orderFilter);
+        Task<IEnumerable<Order>> GetOrdersAsync(PaginationFilterModel pageFilter, OrderFilterModel orderFilter);
         Task UpdateOrderAsync(OrderModel orderModel);
     }
 }

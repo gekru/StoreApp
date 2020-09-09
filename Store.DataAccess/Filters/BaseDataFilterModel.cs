@@ -2,7 +2,7 @@
 
 namespace Store.DataAccess.Filters
 {
-    public class BaseDataFilter
+    public class BaseDataFilterModel
     {
         public string PropertyName { get; set; }
         public SortType SortType { get; set; }

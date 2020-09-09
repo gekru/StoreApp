@@ -7,6 +7,6 @@ namespace Store.DataAccess.Repositories.Interfaces
 {
     public interface IAuthorRepository : IRepository<Author>
     {
-        Task<IEnumerable<Author>> GetFilteredAuthorsAsync(PaginationDataFilter pageFilter, AuthorDataFilter authorFilter);
+        Task<IEnumerable<Author>> GetFilteredAuthorsAsync(PaginationDataFilterModel pageFilter, AuthorDataFilterModel authorFilter);
     }
 }
