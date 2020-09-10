@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using Store.BusinessLogic.Filters;
 using Store.BusinessLogic.Models.Orders;
+using Store.BusinessLogic.Models.Payments;
 using Store.BusinessLogic.Services.Interfaces;
 using Store.DataAccess.Filters;
 using Store.DataAccess.Repositories.Interfaces;
 using Stripe;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using static Store.Shared.Enums.Enums;
 using Order = Store.DataAccess.Entities.Order;
 
 namespace Store.BusinessLogic.Services
@@ -58,22 +58,22 @@ namespace Store.BusinessLogic.Services
             await _orderRepository.UpdateAsync(mapperOrder);
         }
 
-        public async Task OrderPaymentAsync(string stripeEmail, string stripeToken)
+        public async Task OrderPaymentAsync(PaymentModel paymentModel)
         {
             var customerService = new CustomerService();
             var chargeService = new ChargeService();
 
             var customerOption = await customerService.CreateAsync(new CustomerCreateOptions
             {
-                Email = stripeEmail,
-                Source = stripeToken
+                Email = paymentModel.UserEmail,
+                Source = paymentModel.StripeToken
             });
 
             var chargeOptions = new ChargeCreateOptions
             {
-                Amount = 500,
-                Description = "Test",
-                Currency = Currency.USD.ToString(),
+                Amount = paymentModel.Amount,
+                Description = paymentModel.Description,
+                Currency = paymentModel.Currency.ToString(),
                 Customer = customerOption.Id,
             };
 

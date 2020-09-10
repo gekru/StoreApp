@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Store.BusinessLogic.Filters;
 using Store.BusinessLogic.Models.Orders;
+using Store.BusinessLogic.Models.Payments;
 using Store.BusinessLogic.Services.Interfaces;
 using System.Threading.Tasks;
 
@@ -71,9 +72,9 @@ namespace Store.Presentation.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Charge(string stripeEmail, string stripeToken)
+        public async Task<IActionResult> Charge(PaymentModel paymentModel)
         {
-            await _orderService.OrderPaymentAsync(stripeEmail, stripeToken);
+            await _orderService.OrderPaymentAsync(paymentModel);
             return Ok();
         }
     }
