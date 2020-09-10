@@ -22,6 +22,7 @@ using Store.DataAccess.Repositories.Interfaces;
 using Store.Presentation.Middlewares;
 using Store.Presentation.Providers;
 using Store.Presentation.Providers.Interfaces;
+using Stripe;
 using System.Text;
 
 namespace Store.Presentation
@@ -58,10 +59,10 @@ namespace Store.Presentation
             services.AddTransient<IOrderRepository, OrderRepository>();
 
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IAccountService, BusinessLogic.Services.AccountService>();
             services.AddTransient<IPrintingEditionService, PrintingEditionService>();
             services.AddTransient<IAuthorService, AuthorService>();
-            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IOrderService, BusinessLogic.Services.OrderService>();
 
             // Getting section from appsetings.json
             IConfigurationSection jwtSettings = Configuration.GetSection("JwtSettings");
@@ -87,6 +88,8 @@ namespace Store.Presentation
 
             services.AddSingleton(mapper);
 
+            StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -2,11 +2,13 @@
 using Store.BusinessLogic.Filters;
 using Store.BusinessLogic.Models.Orders;
 using Store.BusinessLogic.Services.Interfaces;
-using Store.DataAccess.Entities;
 using Store.DataAccess.Filters;
 using Store.DataAccess.Repositories.Interfaces;
+using Stripe;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static Store.Shared.Enums.Enums;
+using Order = Store.DataAccess.Entities.Order;
 
 namespace Store.BusinessLogic.Services
 {
@@ -31,7 +33,7 @@ namespace Store.BusinessLogic.Services
 
             return result;
         }
-        
+
         public async Task<Order> GetOrderByIdAsync(long orderId)
         {
             return await _orderRepository.GetByIdAsync(orderId);
@@ -54,6 +56,28 @@ namespace Store.BusinessLogic.Services
             var mapperOrder = _mapper.Map<Order>(orderModel);
 
             await _orderRepository.UpdateAsync(mapperOrder);
+        }
+
+        public async Task OrderPaymentAsync(string stripeEmail, string stripeToken)
+        {
+            var customerService = new CustomerService();
+            var chargeService = new ChargeService();
+
+            var customerOption = await customerService.CreateAsync(new CustomerCreateOptions
+            {
+                Email = stripeEmail,
+                Source = stripeToken
+            });
+
+            var chargeOptions = new ChargeCreateOptions
+            {
+                Amount = 500,
+                Description = "Test",
+                Currency = Currency.USD.ToString(),
+                Customer = customerOption.Id,
+            };
+
+            await chargeService.CreateAsync(chargeOptions);
         }
     }
 }

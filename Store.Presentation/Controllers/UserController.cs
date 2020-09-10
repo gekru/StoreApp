@@ -69,7 +69,7 @@ namespace Store.Presentation.Controllers
         }
 
         [HttpPost("ChangeUserStatus")]
-        [Authorize(Roles = nameof(UserRole.Admin))]
+        //[Authorize(Roles = nameof(UserRole.Admin))]
         public async Task<IActionResult> ChangeUserStatus(string email)
         {
             await _userService.ChangeUserStatusAsync(email);

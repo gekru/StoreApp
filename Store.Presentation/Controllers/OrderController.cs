@@ -69,5 +69,12 @@ namespace Store.Presentation.Controllers
             await _orderService.DeleteOrderAsync(orderId);
             return Ok(result);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Charge(string stripeEmail, string stripeToken)
+        {
+            await _orderService.OrderPaymentAsync(stripeEmail, stripeToken);
+            return Ok();
+        }
     }
 }

@@ -10,6 +10,6 @@ namespace Store.BusinessLogic.Models.Orders
         public string Description { get; set; }
         public OrderStatus Status { get; set; }
         public UserModel User { get; set; }
-        public ICollection<OrderItemModel> MyProperty { get; set; }
+        public ICollection<OrderItemModel> OrderItems { get; set; }
     }
 }
