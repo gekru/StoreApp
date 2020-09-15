@@ -89,7 +89,12 @@ namespace Store.Presentation
             services.AddSingleton(mapper);
 
             StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
-            
+
+            services.AddCors(options => options.AddDefaultPolicy(builder => 
+                    builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -109,6 +114,8 @@ namespace Store.Presentation
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseCors();
 
             DbUserInitializer.InitializeAdmin(userManager, configuration).Wait();
 
