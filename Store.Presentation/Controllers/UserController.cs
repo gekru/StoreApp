@@ -9,7 +9,7 @@ using static Store.Shared.Enums.Enums;
 namespace Store.Presentation.Controllers
 {
     [ApiController]
-    [Route("users")]
+    [Route("api/[controller]/[action]")]
     public class UserController : Controller
     {
 
@@ -20,15 +20,15 @@ namespace Store.Presentation.Controllers
             _userService = userService;
         }
 
-        [HttpGet("GetAll", Name = "GetAllUsers")]
-        public async Task<IActionResult> GetAsync([FromQuery] PaginationFilterModel pageFilter, [FromQuery] UserFilterModel userFilter)
+        [HttpGet]
+        public async Task<IActionResult> GetAll([FromQuery] PaginationFilterModel pageFilter, [FromQuery] UserFilterModel userFilter)
         {
             var result = await _userService.GetUsersAsync(pageFilter, userFilter);
             return Ok(result);
         }
 
-        [HttpGet("GetById/{id}", Name = "GetUserById")]
-        public async Task<IActionResult> GetUserByIdAsync(long id)
+        [HttpGet]
+        public async Task<IActionResult> GetUserById(long id)
         {
             var result = await _userService.GetUserByIdAsync(id);
             if (result is null)
@@ -38,23 +38,23 @@ namespace Store.Presentation.Controllers
             return Ok(result);
         }
 
-        [HttpPost("CreateUser", Name = "CreateNewUser")]
-        public async Task<IActionResult> PostAsync(UserModel user)
+        [HttpPost]
+        public async Task<IActionResult> Create(UserModel user)
         {
             await _userService.AddUserAsync(user);
 
             return Ok(user);
         }
 
-        [HttpPost("UpdateUser")]
-        public async Task<IActionResult> UpdateAsync(UserModel user)
+        [HttpPost]
+        public async Task<IActionResult> Update(UserModel user)
         {
             await _userService.UpdateUserAsync(user);
             return Ok(user);
         }
 
-        [HttpDelete("DeleteUser/{id}", Name = "DeleteUser")]
-        public async Task<IActionResult> DeleteAync(long id)
+        [HttpDelete]
+        public async Task<IActionResult> Delete(long id)
         {
             var result = await _userService.GetUserByIdAsync(id);
 
@@ -68,8 +68,8 @@ namespace Store.Presentation.Controllers
             return Ok(result);
         }
 
-        [HttpPost("ChangeUserStatus")]
-        //[Authorize(Roles = nameof(UserRole.Admin))]
+        [HttpPost]
+        [Authorize(Roles = nameof(UserRole.Admin))]
         public async Task<IActionResult> ChangeUserStatus(string email)
         {
             await _userService.ChangeUserStatusAsync(email);

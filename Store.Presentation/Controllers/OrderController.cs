@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Store.Presentation.Controllers
 {
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     public class OrderController : Controller
     {
         private readonly IOrderService _orderService;

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace Store.Presentation.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]/[action]")]
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
@@ -26,8 +26,8 @@ namespace Store.Presentation.Controllers
             _jwtProvider = jwtProvider;
         }
 
-        [HttpPost("RegisterUser")]
-        public async Task<IActionResult> RegisterAsync(RegisterModel user)
+        [HttpPost]
+        public async Task<IActionResult> RegisterUser(RegisterModel user)
         {
             if (ModelState.IsValid)
             {
@@ -54,7 +54,7 @@ namespace Store.Presentation.Controllers
             return Ok(user);
         }
 
-        [HttpGet("ConfirmEmail")]
+        [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string email, string token)
         {
@@ -62,7 +62,7 @@ namespace Store.Presentation.Controllers
             return Ok();
         }
         
-        [HttpPost("Login")]
+        [HttpPost]
         public async Task<IActionResult> Login(LoginModel loginModel)
         {
             var userModel = new UserModel()
@@ -95,7 +95,7 @@ namespace Store.Presentation.Controllers
             return Ok(tokenModel);
         }
 
-        [HttpPost("ForgotPassword")]
+        [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordModel model)
         {
@@ -119,14 +119,14 @@ namespace Store.Presentation.Controllers
             return Ok(model);
         }
 
-        [HttpGet("ResetPassword")]
+        [HttpGet]
         public IActionResult ResetPassword(string token = null)
         {
             _accountService.ResetPassword(token);
             return Ok();
         }
 
-        [HttpPost("ResetPassword")]
+        [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> ResetPassword(ResetPasswordModel model)
         {
@@ -137,7 +137,7 @@ namespace Store.Presentation.Controllers
             return Ok();
         }
 
-        [HttpPost("Logout")]
+        [HttpPost]
         public async Task Logout()
         {
             await _accountService.LogoutAsync();

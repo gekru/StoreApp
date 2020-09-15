@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Store.Presentation.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]/[action]")]
     public class AuthorController : Controller
     {
         private readonly IAuthorService _authorService;
@@ -17,15 +17,15 @@ namespace Store.Presentation.Controllers
             _authorService = authorService;
         }
 
-        [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAsync([FromQuery] PaginationFilterModel pageFilter,
+        [HttpGet]
+        public async Task<IActionResult> GetAll([FromQuery] PaginationFilterModel pageFilter,
             [FromQuery] AuthorFilterModel authorFilter)
         {
             var result = await _authorService.GetAuthorsAsync(pageFilter, authorFilter);
             return Ok(result);
         }
 
-        [HttpGet("GetById/{id}")]
+        [HttpGet]
         public async Task<IActionResult> GetById(long id)
         {
             var result = await _authorService.GetAuthorByIdAsync(id);
@@ -37,14 +37,14 @@ namespace Store.Presentation.Controllers
             return Ok(result);
         }
 
-        [HttpPost("CreateAuthor")]
+        [HttpPost]
         public async Task<IActionResult> Create(AuthorModel authorModel)
         {
             await _authorService.CreateAuthorAsync(authorModel);
             return Ok(authorModel);
         }
 
-        [HttpPost("UpdateAuthor")]
+        [HttpPost]
         public async Task<IActionResult> Update(AuthorModel authorModel)
         {
             try
@@ -58,7 +58,7 @@ namespace Store.Presentation.Controllers
             }
         }
 
-        [HttpDelete("DeleteAuthor")]
+        [HttpDelete]
         public async Task<IActionResult> Delete(long id)
         {
             var result = await _authorService.GetAuthorByIdAsync(id);

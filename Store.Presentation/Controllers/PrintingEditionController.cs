@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Store.Presentation.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]/[action]")]
     public class PrintingEditionController : Controller
     {
         private readonly IPrintingEditionService _printingService;
@@ -17,7 +17,7 @@ namespace Store.Presentation.Controllers
             _printingService = printingService;
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] PaginationFilterModel pageFilter,
             [FromQuery] PrintingEditionFilterModel filter)
         {
@@ -25,7 +25,7 @@ namespace Store.Presentation.Controllers
             return Ok(result);
         }
 
-        [HttpGet("GetById/{id}")]
+        [HttpGet]
         public async Task<IActionResult> GetById(long id)
         {
             var result = await _printingService.GetPrintingEditionByIdAsync(id);
@@ -37,14 +37,14 @@ namespace Store.Presentation.Controllers
             return Ok(result);
         }
 
-        [HttpPost("CreatePrintingEdition")]
+        [HttpPost]
         public async Task<IActionResult> Create(PrintingEditionModel printingModel)
         {
             await _printingService.CreatePrintingEditionAsync(printingModel);
             return Ok(printingModel);
         }
 
-        [HttpPost("UpdatePrintingEdition")]
+        [HttpPost]
         public async Task<IActionResult> Update(PrintingEditionModel printingModel)
         {
             var result = await _printingService.GetPrintingEditionByIdAsync(printingModel.Id);
@@ -57,7 +57,7 @@ namespace Store.Presentation.Controllers
             return Ok(printingModel);
         }
 
-        [HttpDelete("DeletePrintingEdition")]
+        [HttpDelete]
         public async Task<IActionResult> Delete(long id)
         {
             var result = await _printingService.GetPrintingEditionByIdAsync(id);
