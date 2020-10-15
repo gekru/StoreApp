@@ -8,6 +8,7 @@ using Store.BusinessLogic.Services.Interfaces;
 using Store.Presentation.Providers.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Store.Presentation.Controllers
 {
@@ -35,7 +36,7 @@ namespace Store.Presentation.Controllers
 
                 if (result.Errors.Count > 0)
                 {
-                    return Ok(result.Errors);
+                    return BadRequest(result.Errors);
                 }
 
                 var callbackUrl = Url.Action(
@@ -49,7 +50,7 @@ namespace Store.Presentation.Controllers
 
                 await _emailProvider.SendMailAsync(user.Email, mailSubject, mailBody);
 
-                return Content("Check your mail");
+                return Ok(user);
             }
             return Ok(user);
         }
@@ -58,10 +59,14 @@ namespace Store.Presentation.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string email, string token)
         {
-            await _accountService.ConfirmEmailAsync(email, token);
-            return Ok();
+            var result = await _accountService.ConfirmEmailAsync(email, token);
+            if (string.IsNullOrEmpty(result))
+            {
+                return BadRequest();
+            }
+            return Redirect(result);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginModel loginModel)
         {
@@ -101,12 +106,16 @@ namespace Store.Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _accountService.ForgotPasswordAsync(model);
+                var result = await _accountService.ForgotPasswordAsync(model);
+                if (string.IsNullOrEmpty(result))
+                {
+                    return NotFound();
+                }
 
                 var callbackUrl = Url.Action(
                     action: nameof(ResetPassword),
                     controller: nameof(AccountController).Replace("Controller", string.Empty),
-                    values: new { email = model.Email, token = model.Token },
+                    values: new { email = HttpUtility.UrlEncode(model.Email), token = HttpUtility.UrlEncode(model.Token) },
                     protocol: HttpContext.Request.Scheme);
 
                 string mailSubject = "Reset Password";
@@ -114,27 +123,43 @@ namespace Store.Presentation.Controllers
 
                 await _emailProvider.SendMailAsync(model.Email, mailSubject, mailBody);
 
-                return Content("Check your mail");
+                return Ok();
             }
             return Ok(model);
         }
 
         [HttpGet]
-        public IActionResult ResetPassword(string token = null)
+        public IActionResult ResetPassword(string email, string token = null)
         {
-            _accountService.ResetPassword(token);
-            return Ok();
+            var result = _accountService.ResetPassword(email, token);
+            if (string.IsNullOrEmpty(result))
+            {
+                return BadRequest();
+            }
+            return Redirect(result);
         }
 
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> ResetPassword(ResetPasswordModel model)
         {
+            if (model.Email is null)
+            {
+                return BadRequest("Email cannot be null");
+            }
+
             if (ModelState.IsValid)
             {
-                await _accountService.ResetPasswordAsync(model);
+                var result = await _accountService.ResetPasswordAsync(model);
+                
+                if (!result.Succeeded)
+                {
+                    return BadRequest(result.Errors);
+                }
+
+                return Ok();
             }
-            return Ok();
+            return BadRequest();
         }
 
         [HttpPost]

@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Store.BusinessLogic.Models.Account;
 using Store.BusinessLogic.Models.Users;
 using Store.BusinessLogic.Services.Interfaces;
 using Store.DataAccess.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims; 
+using System.Security.Claims;
 using System.Threading.Tasks;
 using static Store.Shared.Enums.Enums;
 
@@ -17,12 +18,14 @@ namespace Store.BusinessLogic.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMapper _mapper;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IConfiguration _configuration;
 
-        public AccountService(UserManager<ApplicationUser> userManager, IMapper mapper, SignInManager<ApplicationUser> signInManager)
+        public AccountService(UserManager<ApplicationUser> userManager, IMapper mapper, SignInManager<ApplicationUser> signInManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _mapper = mapper;
             _signInManager = signInManager;
+            _configuration = configuration;
         }
 
         public async Task<RegisterModel> RegisterUserAsync(RegisterModel user)
@@ -68,49 +71,68 @@ namespace Store.BusinessLogic.Services
                 lockoutOnFailure: false);
         }
 
-        public async Task ForgotPasswordAsync(ForgotPasswordModel model)
+        public async Task<string> ForgotPasswordAsync(ForgotPasswordModel model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user is null || !await _userManager.IsEmailConfirmedAsync(user))
             {
-                return;
+                return null;
             }
 
             model.Token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            return model.Token;
         }
 
-        public ResetPasswordModel ResetPassword(string token)
+        public string ResetPassword(string email, string token)
         {
             var model = new ResetPasswordModel { Token = token };
-            return model;
+            // Getting section from appsetings.json
+            var clientSidePath = _configuration.GetSection("ClientSide");
+            string userData = $"?email={email}&token={model.Token}";
+
+            string redirectPath = clientSidePath["Url"] + clientSidePath["ResetPasswordPath"] + userData;
+
+            return redirectPath;
         }
 
-        public async Task ResetPasswordAsync(ResetPasswordModel model)
+        public async Task<IdentityResult> ResetPasswordAsync(ResetPasswordModel model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user is null)
             {
-                return;
+                return IdentityResult.Failed();
             }
 
-            await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
+            return await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
         }
 
-        public async Task ConfirmEmailAsync(string email, string token)
+        public async Task<string> ConfirmEmailAsync(string email, string token)
         {
             if (email is null)
             {
-                return;
+                return null;
             }
 
             var user = await _userManager.FindByEmailAsync(email);
 
             if (user is null)
             {
-                return;
+                return null;
             }
 
-            await _userManager.ConfirmEmailAsync(user, token);
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+            if (!result.Succeeded)
+            {
+                return null;
+            }
+
+            // Getting section from appsetings.json
+            var clientSidePath = _configuration.GetSection("ClientSide");
+            string userData = $"?firstName={user.FirstName}&lastName={user.LastName}";
+
+            string redirectPath = clientSidePath["Url"] + clientSidePath["ConfirmedMailPath"] + userData;
+
+            return redirectPath;
         }
 
         public List<Claim> GetUserClaims(UserModel userModel)

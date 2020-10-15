@@ -44,7 +44,9 @@ namespace Store.Presentation
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole<long>>()
+            services.AddIdentity<ApplicationUser, IdentityRole<long>>(options =>
+                // User has to confirm an email before SignIn
+                options.SignIn.RequireConfirmedEmail = true)
                 .AddEntityFrameworkStores<ApplicationContext>()
                 .AddDefaultTokenProviders();
 
@@ -90,7 +92,7 @@ namespace Store.Presentation
 
             StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
 
-            services.AddCors(options => options.AddDefaultPolicy(builder => 
+            services.AddCors(options => options.AddDefaultPolicy(builder =>
                     builder.AllowAnyOrigin()
                     .AllowAnyHeader()
                     .AllowAnyMethod()));
